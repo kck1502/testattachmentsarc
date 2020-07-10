@@ -1,0 +1,28 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Detail Request
+type: object
+
+properties:
+
+  airlineNumericCode:
+    type: !include validatingAirlineDesignator.raml
+    required: false
+  
+  memos:
+    displayName: Memos
+    description: List of memos to search for
+    type: array
+    items: !include memo-number.raml
+    minItems: 1
+    maxItems: 1000
+      
+example:
+  {
+    "airlineNumericCode" : "100",
+    "memos":
+      [
+        "8960000000",
+        "8960000001"
+      ]
+  }

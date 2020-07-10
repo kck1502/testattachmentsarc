@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%-5p %d [%t] %c: %m%n"/>
+		</Console>
+		<Http name="DataDog" url="https://http-intake.logs.datadoghq.com/v1/input?host=${sys:hostName}&amp;source=Mulesoft&amp;service=testattachmentsarc&amp;env=dev">
+			<Property name="Content-Type" value="application/json"/>
+			<Property name="Content-Type" value="text/plain"/>
+			<Property name="DD-API-KEY" value="e8c44d6f1b91d4e334fe4b3d16a6c4b4"/>
+			<Property name="message" value='{"ddsource": "Local-Postman","ddtags": "env:staging"}'/>
+			<PatternLayout pattern="%-5p %d [%t] [event: %X{correlationId}] %c:%m%n"/>
+		</Http>
+	</Appenders>
+	<Loggers>
+		<!-- Http Logger shows wire traffic on DEBUG. -->
+		<!--AsyncLogger name="org.mule.service.http.impl.service.HttpMessageLogger" level="DEBUG" /-->
+		<AsyncLogger name="org.mule.service.http" level="WARN"/>
+		<AsyncLogger name="org.mule.extension.http" level="WARN"/>
+		<!-- Reduce startup noise -->
+		<AsyncLogger name="com.mulesoft.mule.runtime.plugin" level="WARN"/>
+		<AsyncLogger name="org.mule.maven.client" level="WARN"/>
+		<AsyncLogger name="org.mule.runtime.core.internal.util" level="WARN"/>
+		<AsyncLogger name="org.quartz" level="WARN"/>
+		<AsyncLogger name="org.mule.munit.plugins.coverage.server" level="WARN"/>
+		<!-- Mule logger -->
+		<AsyncLogger name="org.mule.runtime.core.internal.processor.LoggerMessageProcessor" level="INFO"/>
+		<AsyncRoot level="INFO">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref = "DataDog"/>
+		</AsyncRoot>
+	</Loggers>
+</Configuration>

@@ -1,0 +1,10 @@
+{
+  "validatingAirlineDesignator": "100",
+  "ticketNumber": "1111111111",
+  "systemProvider": "1000",
+  "amount": 200.75,
+  "issuedOn": "2019-02-28",
+  "passenger": "User-01",
+  "employeeId": "Test",
+  "productCategory": "Category-XYZ-01"
+}

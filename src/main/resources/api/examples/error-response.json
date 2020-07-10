@@ -1,0 +1,14 @@
+{
+  "transactionMetadata":
+   { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": "RESOURCE_NOT_FOUND"
+   },
+
+  "transactionResponse": 
+   {
+    "message": "The request cannot be completed because the requested resource cannot be found. Please update the request and resubmit. Refer to the API portal documentation for the list of supported resources."
+   }
+}

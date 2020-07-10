@@ -1,0 +1,8 @@
+{
+  "userName": "User-01",
+  "paymentDate": "2019-02-25",
+  "amount": 50.75,
+  "paymentNumber": "123456789",
+  "payer": "Payer-01",
+  "paymentType": "Other"
+}

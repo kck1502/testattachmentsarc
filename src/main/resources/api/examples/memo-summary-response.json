@@ -1,0 +1,30 @@
+{
+  "transactionMetadata":
+   { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+   },
+  
+  "transactionResponse": 
+   {
+    "memos":  
+      [
+        {
+          "memoNumber": "8960000001",
+          "memoType": "Debit",
+          "validatingAirlineDesignator": "100",
+          "carrierName": "XYZ AIRLINES",
+          "agentNumericCode": "11111111",
+          "primaryStatus": "Closed",
+          "secondaryStatus": "Settled in IAR",
+          "currentBalance": 200.55,
+          "age": 20,
+          "resolutionType": "Carrier",
+          "lastCorrespondent": "Carrier"
+        }
+      ],
+    "totalPages": 1
+   }
+}

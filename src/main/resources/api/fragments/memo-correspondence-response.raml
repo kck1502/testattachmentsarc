@@ -1,0 +1,35 @@
+#%RAML 1.0 DataType
+
+displayName: Add Memo Correspondence Response
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      message:
+        required: false
+        type: string
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          correspondence:
+            type: string
+            example:
+              value: Payed this memo ($250.00)
+          corrType:
+            type: string
+            example:
+              value: P
+example: !include ../examples/memo-correspondence-response.json    

@@ -1,0 +1,35 @@
+#%RAML 1.0 DataType
+
+displayName: Disputes
+type: object
+
+properties:
+
+  disputeDate:
+    displayName: Dispute Date
+    description: The date a memo was disputed by an agency; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-03-30
+  
+  amount:
+    displayName: Disputed Amount (USD)
+    description: The value of the memo's dispute
+    type: number
+    minimum: 0
+    example: 
+      100
+      
+  userName:
+    displayName: User Name
+    description: Name of the customer who disputed the memo
+    type: string
+    example: 
+      "User-01"
+  
+  status:
+    displayName: Status
+    description: Status of a disputed memo
+    type: string
+    example: 
+      "pending"      

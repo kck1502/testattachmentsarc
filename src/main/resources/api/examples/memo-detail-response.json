@@ -1,0 +1,219 @@
+{
+  "transactionMetadata":
+   { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+   },
+
+  "transactionResponse": 
+   {
+     "memos":
+       [
+        {
+          "memoNumber": "8960000000",
+          "memoType": "Debit",
+          "validatingAirlineDesignator": "100",
+          "passenger": "Test memo",
+          "originalAmount": 345.75,
+          "agentNumericCode": "11111111",
+          "agentName": "XYZ Travel Agency",
+          "supplierCode": "100",
+          "balanceAmount": 295.75,
+          "balanceUpdatedOn": "2019-01-30",
+          "lastModifiedOn": "2019-01-30",
+          "age": 20,
+          "issuedOn": "2019-01-25",
+          "loadedOn": "2019-01-26",
+          "primaryStatus": "Open",
+          "secondaryStatus": "Payment Pending",
+          "reactivatedOn": "2019-02-25",
+          "resolutionType": "Carrier",
+          "resolutionOnHold": false,
+          "TRSReason": "N/A",
+          "tickets": [
+            {
+              "validatingAirlineDesignator": "112",
+              "ticketNumber": "1111111111",
+              "systemProvider": "1000",
+              "amount": 122.75,
+              "issuedOn": "2018-12-25",
+              "passenger": "test/user",
+              "employeeId": "Test",
+              "productCategory": "Category-XYZ-01"
+            }
+          ],
+          "correspondence": [
+            {
+              "author": "author-01",
+              "message": "This is a test correspondence",
+              "date": "2019-01-25T14:33:55",
+              "correspondenceType": "Public"
+            },
+            {
+              "author": "author-02",
+              "message": "Payment has been issued via IAR",
+              "date": "2019-01-25T13:20:13",
+              "correspondenceType": "Public"
+            }
+          ],
+          "memoReasons": [
+            {
+              "categoryType": "Booking",
+              "reasonType": "CHURNING",
+              "note": "Churning Violation"
+            }
+          ],
+          "memoReasonChange": [
+            {
+              "categoryType": "Commission",
+              "reasonType": "INCORRECT COMMISSIONS - INVALID TOUR OR TICKET DESIGNATOR"
+            }
+          ],
+          "agencyReason": "This is test agency reason",
+          "attachments": [
+            {
+              "file": "LoginSteps.java",
+              "size": "3.3 KB",
+              "author": "author-01",
+              "date": "2019-01-25",
+              "id": "479288324"
+            },
+            {
+              "file": "meetings.tif",
+              "size": "617.3 KB",
+              "author": "author-01",
+              "date": "2019-01-25",
+              "id": "479288322"
+            },
+            {
+              "file": "query.txt",
+              "size": "5.0 KB",
+              "author": "author-01",
+              "date": "2019-01-25",
+              "id": "479288323"
+            },
+            {
+              "file": "Scenario1.csv",
+              "size": "555.7 KB",
+              "author": "author-02",
+              "date": "2019-01-25",
+              "id": "479288319"
+            }
+          ],
+          "carrierFlexFields": {
+            "entityType": "Carrier",
+            "field1": "Carrierflex1",
+            "field2": "Carrierflex2",
+            "field3": "Carrierflex3",
+            "field4": "Carrierflex4",
+            "field5": "Carrierflex5",
+            "field6": "Carrierflex6"
+          },
+          "tax": [
+            {
+              "taxDescription": "US",
+              "taxCategory": 0,
+              "taxCategoryDescription": "Carrier",
+              "taxAmount": 10.75
+            },
+            {
+              "taxDescription": "US",
+              "taxCategory": 0,
+              "taxCategoryDescription": "Carrier",
+              "taxAmount": 5.75
+            },
+            {
+              "taxDescription": "US",
+              "taxCategory": 1,
+              "taxCategoryDescription": "Agency",
+              "taxAmount": 3.75
+            },
+            {
+              "taxDescription": "",
+              "taxCategory": 0,
+              "taxCategoryDescription": "Carrier",
+              "taxAmount": 15.75
+            },
+            {
+              "taxDescription": "",
+              "taxCategory": 1,
+              "taxCategoryDescription": "Agency",
+              "taxAmount": 3.75
+            }
+          ],
+          "financialDetails": {
+            "carrierComputation": {
+              "otherFees": 10.75,
+              "fare": 100.75,
+              "serviceCharge": 10.75,
+              "penalty": 10.75,
+              "commission": 10.75
+            },
+            "agentComputation": {
+              "otherFees": 10.75,
+              "fare": 100.75,
+              "serviceCharge": 10.75,
+              "penalty": 10.75,
+              "commission": 10.75
+            }
+          },
+          "disputes": [
+            {
+              "amount": 100.75,
+              "disputeDate": "2019-02-04",
+              "userName": "user-01",
+              "status": "pending"
+            }
+          ],
+          "IARPayments": [
+            {
+              "amount": 100.75,
+              "IARSettled": "2019-02-250000000",
+              "transactionNumber": "890019020401010060",
+              "submittedOn": "2019-02-20",
+              "userName": "user-02",
+              "status": "N/A",
+              "settledAmount": 100.75
+            }
+          ],
+          "nonIARPayments": [
+            {
+              "userName": "user-01",
+              "paymentDate": "2019-02-20",
+              "amount": 50.75,
+              "paymentNumber": "123456789",
+              "payer": "payer-01",
+              "paymentType": "Other"
+            }
+          ],
+          "GDS": [
+            {
+              "id": "7906",
+              "name": "ABC GDS",
+              "guidelinesWebsite": "www.abc.com",
+              "grantedAccess": "2019-01-25"
+            }
+          ],
+          "carrier": {
+            "name": "XYZ AIRLINES",
+            "validatingAirlineDesignator": "100",
+            "contactName": "TestContact",
+            "phone": "111-111-1111",
+            "email": "test@abc.com",
+            "ticketingPolicyWebsite": "http://www.abc.com/content/about-us/customer-commitment/rules-disclosure.aspx",
+            "address": {
+              "address1": "Test - Address - 01.",
+              "address2": "Test - Address - 02",
+              "address3": "Test - Address - 03",
+              "city": "Tampa",
+              "state": "FL",
+              "postalCode": "33646",
+              "country": "US"
+            }
+          }
+        }
+       ]
+   }
+}

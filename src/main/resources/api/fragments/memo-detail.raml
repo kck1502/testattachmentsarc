@@ -1,0 +1,269 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Detail
+type: object
+
+properties:
+
+  memoNumber:
+    type: !include memo-number.raml
+          
+  memoType:
+    type: !include memo-type.raml
+    
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+
+  passenger:
+    displayName: Passenger
+    description: The passenger's name attributed to the memo
+    type: string
+    required: false
+    example: 
+      "Test memo"
+
+  originalAmount:
+    displayName: Original Amount (USD)
+    description: The initial dollar value of a memo that was issued by an ARC participating carrier 
+    type: number
+    example:
+      345.75
+    
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+
+  agentName:
+    displayName: Agency Name
+    description: The name of an agency entity;  For Home Office Locations (HOLs), it is the legal name of the person or entity that owns the agency. For branch locations, it is the DBA (doing business as) name, which is the name the agency uses for advertising and sales purposes. 
+    type: string
+    example: 
+      "XYZ Travel Agency"
+
+  supplierCode:
+    displayName: Supplier Code
+    description: The code related to the supplier
+    type: string
+    example: 
+      "100"
+
+  balanceAmount:
+    displayName: Balance (USD)
+    description: The value of the memo at the time the record is viewed
+    type: number
+    example: 
+      295.75
+    
+  balanceUpdatedOn:
+    displayName: Balance Updated On
+    description: The date of the last change to the memo balance; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-02-28
+
+  age:
+    displayName: Age
+    description: The number of days since the memo was loaded in Memo Manager
+    type: integer
+    example: 
+      25
+    
+  issuedOn:
+    displayName: Issued On
+    description: The date a memo was issued to an ARC accredited agency; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-02-28
+  
+  loadedOn:
+    displayName: Loaded On
+    description: The date a memo was loaded in Memo Manager; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-02-28
+  
+  IARSettledOn:
+    displayName: IAR Settled On
+    description: The date the memo was settled; format is YYYY-MM-DD
+    type: string
+    required: false
+    example: 
+      2019-04-30
+
+  primaryStatus:
+    type: !include enum-memo-primary-status.raml
+  
+  secondaryStatus:
+    type: !include enum-memo-secondary-status.raml
+  
+  lastModifiedOn:
+    displayName: Last Modifed On
+    description: The date of the last change to the memo; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-02-28
+      
+  reactivatedOn:
+    displayName: Reactivated On
+    description: Date the airline reactivated the memo; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-02-28
+
+  resolutionType:
+    type: !include enum-resolution-type.raml
+
+  resolutionOnHold:
+    displayName: Resolution Type Hold
+    description: The Hold option prevents Memo Manager from automatically changing a revenue recovery selection; applicable for Revenue Recovery Service airline participants
+    type: boolean
+    example: 
+      false
+    
+  TRSReason:
+    displayName: TRS Reason
+    description: Defines what type of credit card chargeback was issued to an agent 
+    type: string
+    example:
+      "Invalid credit card number"
+
+  TRSAge:
+    displayName: TRS Age
+    description: The number of days since the memo was entered into a TRS Resolution Type; compensatory fee is not required if age is less than 15
+    type: integer
+    required: false
+    example: 
+      5
+  
+  tickets:
+    displayName: Ticket Information
+    description: Ticket details for the memo
+    type: array
+    items: !include ticket.raml
+    minItems: 1
+  
+  tax:
+    displayName: Tax Details
+    description: Memo tax amounts for agency and carrier
+    type: array
+    items: !include tax.raml
+    required: false
+    
+  financialDetails:
+    displayName: Memo Financial Details (USD)
+    description: Memo financial details for agency and carrier computations
+    type: !include memo-financial-detail.raml
+    required: false
+
+  IARpayments:
+    displayName: IAR Payments
+    description: Memo amounts settled in IAR
+    type: array
+    items: !include iar-payment.raml
+    required: false  
+  
+  nonIARPayments:
+    displayName: Non-IAR Payments
+    description: Memo amounts settled outside IAR
+    type: array
+    items: !include non-iar-payment.raml
+    required: false    
+
+  disputes:
+    displayName: Disputes
+    description: Information regarding memo's dispute
+    type: array
+    items: !include dispute.raml
+    required: false
+
+  correspondence:
+    displayName: Correspondence
+    description: Messages between entities
+    type: array
+    items: !include correspondence.raml
+    required: false
+
+  memoReasons:
+    displayName: Memo Reasons
+    description: Information on the reason for the memo being issued
+    type: array
+    items: !include memo-reason.raml
+
+  memoReasonChange:
+    displayName: Memo Reason Change
+    description: Information on the agency's requested change to the airline-assigned memo reason
+    type: array
+    items: !include memo-reason-change.raml
+   
+  agencyReason: 
+    displayName: Agency Reason
+    description: Information from the agency regarding the reason the memo was issued 
+    type: string
+    example: 
+      "Booking error"
+    
+  attachments:
+    displayName: Attachments
+    description: Information on the attachments of the memo
+    type: array
+    items: !include attachment.raml
+    required: false
+
+  agencyFlexFields:
+    displayName: Agency Flex Fields
+    description: 6 data elements provided to the customer to use as needed in managing their processes; visible to the Agency entity only
+    type: !include entity-flex-fields.raml
+    required: false
+    example:
+      {
+        "entityType": "Agency",
+        "field1": "Flex1",
+        "field2": "Flex2",
+        "field3": "Flex3",
+        "field4": "Flex4",
+        "field5": "Flex5",
+        "field6": "Flex6"
+      }
+
+  carrierFlexFields:
+    displayName: Carrier Flex Fields
+    description: 6 data elements provided to the customer to use as needed in managing their processes; visible to the Carrier entity only
+    type: !include entity-flex-fields.raml
+    required: false
+    example:
+      {
+        "entityType": "Carrier",
+        "field1": "Flex1",
+        "field2": "Flex2",
+        "field3": "Flex3",
+        "field4": "Flex4",
+        "field5": "Flex5",
+        "field6": "Flex6"
+      }
+
+  gdsFlexFields:
+    displayName: GDS Flex Fields
+    description: 6 data elements provided to the customer to use as needed in managing their processes; visible to the GDS entity only
+    type: !include entity-flex-fields.raml
+    required: false
+    example:
+      {
+        "entityType": "GDS",
+        "field1": "Flex1",
+        "field2": "Flex2",
+        "field3": "Flex3",
+        "field4": "Flex4",
+        "field5": "Flex5",
+        "field6": "Flex6"
+      }
+
+  GDS:
+    displayName: GDS Access
+    description: Information on the GDS that is granted access to the memo
+    type: array
+    items: !include gds-details.raml
+    required: false
+
+  carrier:
+    displayName: Carrier/Supplier Information
+    description: Information on the carrier/supplier of the memo
+    type: !include carrier-details.raml

@@ -1,0 +1,31 @@
+#%RAML 1.0 DataType
+
+displayName: GDS Assignment Response
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      message:
+        required: false
+        type: string
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          gdsAccess:
+            type: string
+            example:
+              value: "5235"
+example: !include ../examples/memo-gds-assignment-response.json    

@@ -1,0 +1,31 @@
+{
+  "transactionMetadata": {
+    "correlationId": "5615f050-7f24-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:21:12.743-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Carrier Contact update successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "carrierSupplierName": "Western Airlines888",
+      "carrierSupplierNumber": "888",
+      "contactName": "Alex Mellon",
+      "phone": "222-222-2222",
+      "email": "am@eastern.com",
+      "ticketingPolicyWebsite": "http://www.stu.com/rules-disclosure.aspx",
+      "address": {
+        "address1": "Address - 01",
+        "address2": "Address - 02",
+        "address3": "Address - 03",
+        "city": "Arlinton",
+        "state": "Virginia",
+        "postalCode": "222222",
+        "country": "US"
+      }
+    }
+  }
+}

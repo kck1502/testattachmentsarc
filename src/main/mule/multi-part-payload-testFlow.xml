@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+    	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+    http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+    http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+    	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="10867762-5e3b-4950-b8e3-6b30bbf5fade" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="77ef930f-4ecc-4b42-84b7-1510cc4e221a" name="api-key" value="e8c44d6f1b91d4e334fe4b3d16a6c4b4" />
+	<flow name="multi-part-payload-testFlow" doc:id="5897a14e-c2c3-4edc-8f45-65a35859655e" >
+    		<http:listener doc:name="Listener" doc:id="d37a2c6f-9376-4220-b7f8-45bb05e159dc" path="/multiupload" allowedMethods="GET,POST" config-ref="HTTP_Listener_config"/>
+		<json-logger:logger doc:name="Logger" doc:id="32543b59-a815-4596-87d2-eb54199aaac1" config-ref="JSON_Logger_Config" message="Request received">
+			<json-logger:content ><![CDATA[#[payload]]]></json-logger:content>
+		</json-logger:logger>
+		<flow-ref doc:name="Flow Reference" doc:id="8ec3c207-0b63-437e-bea5-593da13abc5e" name="arc-memo-correspond-attatch"/>
+    </flow>
+	<flow name="multi-part-payload-testFlowFlow" doc:id="29e85c94-3e3e-48fb-9a00-6944ea5b5696" >
+		<http:listener doc:name="Listener" doc:id="d028ebca-91a9-4f63-b6f8-cc8dc18d4b62" config-ref="HTTP_Listener_config" path="/multiuploadsaveattachments"/>
+		<json-logger:logger doc:name="Logger" doc:id="37276b85-c8ac-43a5-be76-b50422eb37f0" config-ref="JSON_Logger_Config" message="testFlowFlow Request Received">
+			<json-logger:content ><![CDATA[#[payload]]]></json-logger:content>
+		</json-logger:logger>
+		<flow-ref doc:name="Flow Reference" doc:id="c03f80e9-2f5f-4820-93f3-354794e31a00" name="save-attachmentsFlow"/>
+	</flow>
+
+</mule>

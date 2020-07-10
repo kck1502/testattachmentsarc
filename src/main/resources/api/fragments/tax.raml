@@ -1,0 +1,36 @@
+#%RAML 1.0 DataType
+
+displayName: Tax
+type: object
+
+properties:
+  
+  taxDescription:
+    displayName: Tax Description
+    description: Type of tax
+    type: string
+    example: 
+      "US"
+      
+  taxCategory:
+    displayName: Tax Category
+    description: Tax category ID for an entity (0 = Carrier and 1 = Agency)
+    type: integer
+    example: 
+      0
+      
+  taxCategoryDescription:
+    displayName: Tax Category Description
+    description: Entity type for the tax category
+    type: string
+    example: 
+      "Carrier"
+    
+  taxAmount:
+    displayName: Tax Amount (USD)
+    description: Tax value 
+    type: number
+    example: 
+      10.75
+      
+ 

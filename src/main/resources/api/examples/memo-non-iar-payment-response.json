@@ -1,0 +1,22 @@
+{
+  "transactionMetadata": {
+    "correlationId": "a44c3ed0-7f21-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:02:09.626-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Non-IAR Payment successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "amount": "100.00",
+      "payer": "Bank One",
+      "paymentNumber": "65432",
+      "paymentType": "Check",
+      "paymentDate": "01/20/2020",
+      "correspondence": "Non-IAR Payment complete."
+    }
+  }
+}

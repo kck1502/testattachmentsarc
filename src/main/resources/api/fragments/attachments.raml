@@ -1,0 +1,20 @@
+#%RAML 1.0 DataType
+description: List of attachments that can be attached to a memo.
+type: array
+minItems: 0
+maxItems: 10
+items:
+  type: object
+  properties:
+    filename:
+      description: The name assigned to the attachemnt when it is uploaded.
+      type: string
+      required: false
+      minLength: 1
+      maxLength: 255
+    relateddocument:
+      description: The internal name assigned to attachment when it is uploaded.
+      type: string
+      required: false
+      minLength: 1
+      maxLength: 255 

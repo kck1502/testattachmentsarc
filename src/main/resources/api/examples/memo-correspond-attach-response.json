@@ -1,0 +1,72 @@
+{
+  "transactionMetadata": {
+    "correlationId": "f89206c0-8a14-11ea-81cf-c8f750c849f4",
+    "timestamp": "2020-04-29T08:28:57.804-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "memos": [
+      {
+        "validatingAirlineDesignator": "006",
+        "agentNumericCode": "05600313",
+        "memoNumber": "8960800800",
+        "attachments": [
+          {
+            "filename": "calendar.pdf",
+            "attachmentId": "480069210"
+          },
+          {
+            "filename": "small.docx",
+            "attachmentId": "480069211"
+          }
+        ],
+        "correspondence": [
+          {
+            "author": "ldapAgtApiDisplayNm",
+            "message": "This correspondence is public",
+            "correspondenceType": "Public"
+          },
+          {
+            "author": "ldapAgtApiDisplayNm",
+            "message": "This correspondence is private",
+            "correspondenceType": "Private Agency"
+          }
+        ],
+        "message": {
+          "statusCode": "SUCCESS"
+        }
+      },
+      {
+        "validatingAirlineDesignator": "006",
+        "agentNumericCode": "05600313",
+        "memoNumber": "8960900900",
+        "attachments": [
+          {
+            "filename": "calendar.pdf",
+            "attachmentId": "480069210"
+          },
+          {
+            "filename": "small.docx",
+            "attachmentId": "480069211"
+          }
+        ],
+        "correspondence": [
+          {
+            "author": "ldapAgtApiDisplayNm",
+            "message": "This correspondence is public",
+            "correspondenceType": "Public"
+          },
+          {
+            "author": "ldapAgtApiDisplayNm",
+            "message": "This correspondence is private",
+            "correspondenceType": "Private Agency"
+          }
+        ],
+        "message": {
+          "statusCode": "SUCCESS"
+        }
+      }
+    ]
+  }
+}

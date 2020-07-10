@@ -1,0 +1,19 @@
+{
+  "transactionMetadata": {
+    "correlationId": "a73b5300-7f22-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:09:25.146-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Memo Resolution successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "resolutionType": "TRS",
+      "hold": true,
+      "trsReason": "Fraudulent-Unauthorized Use"
+    }
+  }
+}

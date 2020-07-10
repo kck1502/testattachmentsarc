@@ -1,0 +1,24 @@
+#%RAML 1.0 DataType
+
+displayName: Reject Dispute
+type: object
+
+properties:  
+  
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: false
+  
+  memo:
+    type: !include memo-number.raml
+
+  correspondence:
+    type: string
+    required: true
+    minLength: 1
+    maxLength: 4000
+    description: An message that can be tied to the request.
+    example:
+      "Rejected Memo Dispute."
+    
+example: !include ../examples/memo-reject-dispute-request.json

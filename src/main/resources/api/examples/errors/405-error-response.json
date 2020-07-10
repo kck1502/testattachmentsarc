@@ -1,0 +1,14 @@
+{
+  "transactionMetadata": 
+  { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": "METHOD_NOT_ALLOWED"
+  },
+  
+  "transactionResponse": 
+  {
+    "message": "The request cannot be completed because the request method submitted is unsupported. Please update the request and resubmit. Refer to the API portal documentation for the list of supported methods."
+  }
+}

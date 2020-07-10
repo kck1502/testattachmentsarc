@@ -1,0 +1,52 @@
+#%RAML 1.0 DataType
+displayName: Memo Summary
+type: object
+
+properties:
+  
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+      
+  carrierName:
+    type: !include carrier-name.raml
+  
+  memoNumber:
+    type: !include memo-number.raml
+
+  memoType: 
+    type: !include memo-type.raml
+      
+  currentBalance:
+    displayName: Current Balance
+    description: The value of the memo at the time the record is viewed
+    type: number
+    multipleOf: 0.01
+    example:
+      100.75
+
+  primaryStatus:
+    type: !include enum-memo-primary-status.raml
+    
+  secondaryStatus:
+    type: !include enum-memo-secondary-status.raml
+    
+  age:
+    displayName: Age
+    description: The number of days since the memo was loaded in Memo Manager
+    type: integer
+    example: 20
+  
+  resolutionType:
+    displayName: Resolution Type
+    type: string
+    example: "Carrier"
+    
+  lastCorrespondent:
+    displayName: Last Correspondent   
+    description: Entity type who last created a correspondence message
+    type: string
+    example: "Carrier" 
+    

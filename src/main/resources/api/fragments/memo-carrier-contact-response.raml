@@ -1,0 +1,76 @@
+#%RAML 1.0 DataType
+
+displayName: Update Carrier Contact Response
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      message:
+        required: false
+        type: string
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          carrierSupplierName:
+            displayName: Carrier/Supplier Name
+            description: Carrier or Supplier Name
+            type: string
+            required: false
+            example:
+              "Eastern Airlines"
+
+          carrierSupplierNumber:
+            displayName: Carrier/Supplier #
+            description: Carrier or Supplier number
+            type: string
+            required: false
+            example:
+              "546"
+
+          contactName:
+            displayName: Contact Name
+            description: Contact name for the carrier or supplier
+            type: string
+            required: false
+            example:
+              "Alexandra Mellon"
+
+          phone:
+            displayName: Phone
+            description: Phone number
+            type: string
+            required: false
+            example:
+              "516-352-1472"
+
+          email:
+            displayName: Email Address
+            description: Email address
+            type: string
+            required: false
+            example:
+              "amellon@eastern.com"
+
+          ticketingPolicyWebsite:
+            displayName: Ticketing Policy Website
+            description: The website of the carrier's ticketing policy
+            type: string
+            required: false
+            example: 
+              "http://www.xyz.com/rules-disclosure.aspx"
+          address:
+            type: !include address.raml
+example: !include ../examples/memo-carrier-contact-response.json    

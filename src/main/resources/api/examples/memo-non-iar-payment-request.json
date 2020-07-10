@@ -1,0 +1,11 @@
+{
+  "validatingAirlineDesignator": "157",
+  "agentNumericCode": "11111111",
+  "memo": "8960000001",
+  "amount": 200.00,
+  "payor": "Bank One",
+  "paymentNumber": "65432",
+  "fop": "Check",
+  "paymentDate": "01/20/2020",
+  "correspondence": "Non-IAR Payment complete."
+}

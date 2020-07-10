@@ -1,0 +1,34 @@
+#%RAML 1.0 DataType
+
+displayName: Delete attachment response
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          attachmentId:
+            type: string
+            example:
+              value: "480069226"
+          message:
+            type: object
+            properties:
+              statusCode: 
+                type: string
+                example: "SUCCESS"
+example: !include ../examples/memo-delete-attachment-response.json    

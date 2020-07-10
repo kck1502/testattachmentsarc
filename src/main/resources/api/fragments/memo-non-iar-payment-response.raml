@@ -1,0 +1,47 @@
+#%RAML 1.0 DataType
+
+displayName: Non-IAR Payment Response
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      message:
+        required: false
+        type: string
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          amount:
+            type: string
+            example:
+              value: "250.00"
+          payer:
+            type: string
+            example:
+              value: "Bank One"
+          paymentNumber:
+            type: string
+            example: "65342"
+          paymentType:
+            type: string
+            example: "Check"
+          paymentDate:
+            type: string
+            example: "01/20/2020"
+          correspondence:
+            type: string
+            example: "Non-IAR Payment complete"
+example: !include ../examples/memo-non-iar-payment-response.json    

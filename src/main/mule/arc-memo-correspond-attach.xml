@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<validation:config name="Validation_Config" doc:name="Validation Config" doc:id="c629243f-9523-4f37-b439-1dfe29697d71" />
+	<flow name="arc-memo-correspond-attatch" doc:id="df4558ec-dc6c-4da3-acf7-acff51e75db7" >
+		<logger level="INFO" doc:name="Logger" doc:id="c67c2f30-5bf5-4925-82ad-8244059cb16e" message="Received Request for Files Correspond attach"/>
+		<ee:transform doc:name="Save requestUrl" doc:id="d561d433-94d3-40e7-833f-933ccc37523b" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestURL" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	url: attributes.requestPath as String
+}
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Save request" doc:id="17bf819c-ed77-4148-9145-463959fc4f24">
+			<ee:message>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="filteredRequest" ><![CDATA[%dw 2.0
+import * from dw::core::Binaries
+import isNumeric from dw::core::Strings
+output application/json 
+var payloadParts=payload pluck(payload.parts) default []
+var payloadArray=payloadParts[0] pluck($)
+---
+{
+	memos: (payloadArray filter $.headers."Content-Disposition".name == "memo").content map
+		using (memoData = splitBy($,";"))			
+		{
+				validatingAirlineDesignator: memoData[0],
+				agentNumericCode: memoData[1],
+				memo: memoData[2]
+		},
+//	invalidMemoRequests: (payloadArray filter $.headers."Content-Disposition".name == "memo").content map
+//		using (memoData = splitBy($,";"))
+//		if (isEmpty(memoData[0]) or sizeOf(memoData[0] default "") != 3 or !isNumeric(memoData[0]) or  
+//			isEmpty(memoData[1]) or sizeOf(memoData[1] default "") != 8 or !isNumeric(memoData[0]) or 
+//			isEmpty(memoData[2]) or sizeOf(memoData[2] default "") != 10 or  !isNumeric(memoData[0]))
+//			$
+//		else
+//			[],			
+	publicCorrespondence: (payloadArray filter $.headers."Content-Disposition".name == "publicCorrespondence").content[0],
+	privateCorrespondence: (payloadArray filter $.headers."Content-Disposition".name == "privateCorrespondence").content[0],
+//	parts: (payloadArray filter $.headers."Content-Disposition".name == "fileData")	map (value,item) ->
+//			{
+//				"name": value.headers."Content-Disposition".name,
+//				"filename": value.headers."Content-Disposition".filename,
+//				"contenttype": value.headers."Content-Type",
+//				"dataType": typeOf(value.content),
+//				"fileSize": sizeOf(value.content),
+//				"content": 
+//					if (typeOf(value.content) as String == "Binary")
+//						toBase64(value.content)
+//					else
+//						value.content			
+//			}			
+}]]></ee:set-variable>
+			
+</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="dbc04630-6939-4dc2-b008-0ae5537e08ce" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="invalidMemoRequest" ><![CDATA[%dw 2.0
+output application/json
+---
+
+			if (isEmpty(payload.validatingAirlineDesignator) or sizeOf(payload.validatingAirlineDesignator default "") != 3 or !isInteger(payload.validatingAirlineDesignator) or  
+			isEmpty(payload.agentNumericCode) or sizeOf(payload.agentNumericCode default "") != 8 or !isInteger(payload.validatingAirlineDesignator) or 
+			isEmpty(payload.memo) or sizeOf(payload.memo default "") != 10 or  !isInteger(payload.validatingAirlineDesignator))
+			payload
+		else
+			[]
+
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<validation:is-empty-collection doc:name="Is empty collection" doc:id="5afbe47f-1357-4d9d-a126-b596876de47b" config-ref="Validation_Config" values="#[flatten(vars.invalidMemoRequest.memos)]" message='#["Invalid memo format(s): " ++ ((flatten(vars.invalidMemoRequest.memos) default []) joinBy "|")]'>
+			<error-mapping sourceType="VALIDATION:NOT_EMPTY_COLLECTION" targetType="APP:VALIDATION_FAILED" />
+		</validation:is-empty-collection>
+		<set-payload value='#[%dw 2.0
+import * from dw::core::Binaries
+import isNumeric from dw::core::Strings
+output application/json 
+var payloadParts=payload pluck(payload.parts) default []
+var payloadArray=payloadParts[0] pluck($)
+---
+{
+	parts: (payloadArray filter $.headers."Content-Disposition".name == "fileData")	map (value,item) -&gt;
+			{
+				"name": value.headers."Content-Disposition".name,
+				"filename": value.headers."Content-Disposition".filename,
+				"contenttype": value.headers."Content-Type",
+				"dataType": typeOf(value.content),
+				"fileSize": sizeOf(value.content),
+				"content": 
+					if (typeOf(value.content) as String == "Binary")
+						toBase64(value.content)
+					else
+						value.content			
+			}			
+}]' doc:name="Set Payload" doc:id="55fc1c02-8b24-4744-9307-387326715c1e" />
+		<flow-ref doc:name="Upload Attachments" doc:id="e74c7c1e-aef8-498a-b63f-5345988a3603" name="arc-memo-upload-attachments-updated" target="uploadAttachments"/>
+		<set-payload value="#[%dw 2.0
+output text/xml skipNullOn='everywhere'
+ns ns0 http://schemas.xmlsoap.org/soap/envelope/
+ns ns01 http://arccorp.com/amm/schemas
+---
+{
+	ns0#Envelope: {
+		ns0#Body: {
+			ns01#UserRequest: {
+				ns01#RequestType: 'memo.memoDetail.viewMemo',
+				ns01#MemoCollection: {
+					(vars.filteredRequest.memos map
+						ns01#memo: {
+							ns01#MEM_TDNR_FORMSERIAL: $.memo, 
+							ns01#agencyID: $.agentNumericCode,
+							ns01#carrierID: $.validatingAirlineDesignator
+					})
+			    }
+			}
+		}
+	}
+}]" doc:name="Memo Detail Request" doc:id="d1f34e2c-e6f9-4165-857c-894791e31fc4" />
+
+	
+</flow>
+	
+	
+</mule>

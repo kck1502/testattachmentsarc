@@ -1,0 +1,21 @@
+{
+  "transactionMetadata": {
+    "correlationId": "920e50c0-9095-11ea-ac35-c8f750c849f4",
+    "timestamp": "2020-05-07T15:04:32.157-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "memos": [
+      {
+        "memoNumber": "8960900900",
+        "validatingAirlineDesignator": "006",
+        "agentNumericCode": "05600313",
+        "attachmentId": "480069226",
+        "message": {
+          "statusCode": "SUCCESS"
+        }
+      }
+    ]
+  }
+}

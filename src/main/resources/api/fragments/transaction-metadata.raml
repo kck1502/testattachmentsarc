@@ -1,0 +1,38 @@
+#%RAML 1.0 DataType
+
+displayName: Transaction Metadata
+description: Contains metadata about the response
+type: object
+
+properties:
+  correlationId: 
+    displayName:  Correlation Id
+    description: A unique message identifier within every message that transits between each system
+    type: string
+    example:
+      "5e72c080-6764-11e9-83cb-0028f8be009a"
+
+  timestamp: 
+    displayName: Time stamp
+    description: Date and time of the response
+    type: string
+    example:
+      "2019-04-25T10:14:00.748-04:00"
+
+  message:
+    displayName: Response Status Message
+    description: Defines if the request was successful or unsuccessful; possible values are SUCCESS or FAILED
+    type: string
+    example:
+      "SUCCESS"
+
+  statusCode:
+    type: !include enum-transaction-response-status.raml
+
+example:
+  {
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": BAD_REQUEST
+  }

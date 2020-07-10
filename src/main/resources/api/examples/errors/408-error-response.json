@@ -1,0 +1,14 @@
+{
+  "transactionMetadata": 
+  { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": "REQUEST_TIMEOUT"
+  },
+
+  "transactionResponse": 
+  {
+    "message": "The request has timed out and cannot be completed. Please resubmit the request."
+  }
+}

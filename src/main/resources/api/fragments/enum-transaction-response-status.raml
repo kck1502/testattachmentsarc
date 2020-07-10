@@ -1,0 +1,26 @@
+#%RAML 1.0 DataType
+
+displayName: Response Status Code
+description: Reason for the response status 
+type:
+enum: 
+  [
+    ACCESS_FORBIDDEN,
+    ATTACHMENT_NOT_FOUND,
+    BAD_REQUEST,
+    FAILED,
+    INVALID_RESPONSE,
+    INTERNAL_SERVER_ERROR,
+    METHOD_NOT_ALLOWED,
+    NO_RESULTS_FOUND,
+    RESOURCE_NOT_FOUND,
+    REQUEST_NOT_ACCEPTABLE,
+    REQUEST_TIMEOUT,
+    SERVICE_UNAVAILABLE,
+    SUCCESS,
+    UNSUPPORTED_MEDIA_TYPE,
+    VALIDATION_FAILED
+  ]
+
+example:
+  BAD_REQUEST

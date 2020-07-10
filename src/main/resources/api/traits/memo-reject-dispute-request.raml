@@ -1,0 +1,8 @@
+#%RAML 1.0 Trait
+
+body:
+  application/json:
+    type: array
+    minItems: 1
+    maxItems: 50
+    items: !include ../fragments/memo-reject-request.raml

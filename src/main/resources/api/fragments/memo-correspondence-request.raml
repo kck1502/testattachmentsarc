@@ -1,0 +1,38 @@
+#%RAML 1.0 DataType
+
+displayName: Add a correspondence to a memo
+type: object
+
+properties:  
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    required: true
+     
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: true
+  
+  memo:
+    type: !include memo-number.raml
+    required: true
+
+  correspondence:
+    type: string
+    required: true
+    minLength: 1
+    maxLength: 4000
+    description: An message that can be tied to the request.
+    example:
+      "Added Memo Correspondence."
+    
+  corrType:
+    type: string
+    required: true
+    minLength: 1
+    maxLength: 1
+    description: Public (P) or Private (R)
+    example:
+      "P"
+
+example: !include ../examples/memo-correspondence-request.json

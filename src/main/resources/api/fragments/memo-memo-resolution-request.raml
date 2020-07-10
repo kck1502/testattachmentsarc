@@ -1,0 +1,35 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Resolution
+type: object
+
+properties:
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    required: true
+     
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: true
+  
+  memo:
+    type: !include memo-number.raml
+    required: true
+
+  resolutionType:
+    type: !include enum-resolution-type.raml
+
+  hold:
+    displayName: Hold
+    description: Airline can place the memo resolution on Hold or remove the Hold
+    type: boolean
+    required: false
+    example:
+      true
+  
+  trsReason:
+    type: !include enum-trs-reason.raml
+    required: false
+
+example: !include ../examples/memo-memo-resolution-request.json

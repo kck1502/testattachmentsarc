@@ -1,0 +1,24 @@
+{
+  "transactionMetadata":
+   { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+   },
+  
+  "transactionResponse": 
+   {
+     "memos": [
+            {
+                "memoNumber": "8960000002",
+                "validatingAirlineDesignator": "157",
+                "agentNumericCode": "05600313",
+                "message": {
+                    "statusCode": "FAILED",
+                    "reason": "No changes applied. The requested update is not available for the memo's current status"
+                }
+            }
+        ]
+   }
+}

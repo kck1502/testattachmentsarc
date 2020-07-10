@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="91a0d1b2-6d27-4cc1-808d-deaeae28b6d0" environment="${json.logger.application.env}" prettyPrint="false"/>
+	<configuration-properties doc:name="Configuration properties" doc:id="69d84d4e-3506-4927-ae70-b6b69e20847d" file="config.yaml" />
+	<global-property doc:name="Global Property" doc:id="8c1f8ab4-1e67-4122-9c2e-f36f5246f20e" name="service-name" value="testattachmentsarc" />
+	<global-property doc:name="Global Property" doc:id="8c0e0b57-f58a-42d1-ad76-0f1311ccfd05" name="env" value="DEV" />
+	<flow name="save-attachmentsFlow" doc:id="3799b9b5-9bf1-4113-b849-88a4d8b51422" >
+		<logger level="DEBUG" doc:name="Logger" doc:id="e156b7f5-357a-4381-8e49-e49a407c91cc" message="#[payload]" />
+		<json-logger:logger doc:name="Logger" doc:id="3a515482-8677-49cf-b747-7d85d5114a61" config-ref="JSON_Logger_Config" message="payload">
+			<json-logger:content ><![CDATA[#[%dw 2.0
+import * from dw::core::Binaries
+output application/json 
+var payloadParts=payload pluck(payload.parts) default []
+var payloadArray=payloadParts[0] pluck($)
+---
+payload: {
+	validatingAirlineDesignator: (payloadArray filter $.headers."Content-Disposition".name == "validatingAirlineDesignator").content[0],
+	agentNumericCode: (payloadArray filter $.headers."Content-Disposition".name == "agentNumericCode").content[0],
+	memo: (payloadArray filter $.headers."Content-Disposition".name == "memo").content[0],
+	//parts: (payloadArray filter $.headers."Content-Disposition".name == "fileData")	map (value,item) ->
+	//		{
+	//			"name": value.headers."Content-Disposition".name,
+//				"filename": value.headers."Content-Disposition".filename,
+	//			"contenttype": value.headers."Content-Type",
+	//			"dataType": typeOf(value.content),
+	//			"fileSize": sizeOf(value.content),
+	//			"content": 
+	//				if (typeOf(value.content) as String == "Binary")
+	//					toBase64(value.content)
+	//				else
+	//					value.content			
+	//		}			
+}]]]></json-logger:content>
+		</json-logger:logger>
+		<ee:transform doc:name="Save requestUrl" doc:id="858bc0fa-5a14-4296-8a08-034d9aff430b" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="requestURL" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	url: attributes.requestPath as String
+}
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Save request" doc:id="c18de1b6-357f-4aac-b8db-109df85714e3" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="filteredRequest" ><![CDATA[%dw 2.0
+import * from dw::core::Binaries
+output application/json 
+var payloadParts=payload pluck(payload.parts) default []
+var payloadArray=payloadParts[0] pluck($)
+---
+{
+	validatingAirlineDesignator: (payloadArray filter $.headers."Content-Disposition".name == "validatingAirlineDesignator").content[0],
+	agentNumericCode: (payloadArray filter $.headers."Content-Disposition".name == "agentNumericCode").content[0],
+	memo: (payloadArray filter $.headers."Content-Disposition".name == "memo").content[0],
+	//parts: (payloadArray filter $.headers."Content-Disposition".name == "fileData")	map (value,item) ->
+	//		{
+	//			"name": value.headers."Content-Disposition".name,
+//				"filename": value.headers."Content-Disposition".filename,
+	//			"contenttype": value.headers."Content-Type",
+	//			"dataType": typeOf(value.content),
+	//			"fileSize": sizeOf(value.content),
+	//			"content": 
+	//				if (typeOf(value.content) as String == "Binary")
+	//					toBase64(value.content)
+	//				else
+	//					value.content			
+	//		}			
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Validate input data" doc:id="2b045140-3345-4998-833e-bdc8acd4ccaf" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="memoValidity" ><![CDATA[%dw 2.0
+import isNumeric from dw::core::Strings
+output application/json skipNullOn="everywhere"
+---
+{
+	invalidMemoData: 
+		vars.filteredRequest mapObject ((v,k) ->
+		{
+			(validatingAirlineDesignator: 
+				if ((isEmpty(v) or sizeOf(v default "") != 3 or !isNumeric(v) default ""))
+					k ++ "-" ++ v
+				else
+					null
+			) if (k as String == "validatingAirlineDesignator"),
+			(agentNumericCode: 
+				if ((isEmpty(v) or sizeOf(v default "") != 8 or !isNumeric(v) default ""))
+					k ++ "-" ++ v
+				else
+					null
+			) if (k as String == "agentNumericCode"),
+			(memo:  
+				if ((isEmpty(v) or sizeOf(v default "") != 10 or !isNumeric(v) default ""))
+					k ++ "-" ++ v
+				else
+					null
+			) if (k as String == "memo")				 	
+		})
+}
+
+		
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-payload value='#[%dw 2.0
+import * from dw::core::Binaries
+output application/json 
+var payloadParts=payload pluck(payload.parts) default []
+var payloadArray=payloadParts[0] pluck($)
+---
+{
+	parts: (payloadArray filter $.headers."Content-Disposition".name == "fileData")	map (value,item) -&gt;
+			{
+				"name": value.headers."Content-Disposition".name,
+				"filename": value.headers."Content-Disposition".filename,
+				"contenttype": value.headers."Content-Type",
+				"dataType": typeOf(value.content),
+				"fileSize": sizeOf(value.content),
+				"content": 
+					if (typeOf(value.content) as String == "Binary")
+						toBase64(value.content)
+					else
+						value.content			
+			}			
+}]' doc:name="Set Payload" doc:id="f5c335ff-083a-46ce-87b1-89c5ff66ffad" />
+		<flow-ref doc:name="arc-memo-upload-attachments-updated" doc:id="b10e2622-a10e-49d6-9bde-c9b6e3cd7fc4" name="arc-memo-upload-attachments-updated" />
+		<set-payload value="#[output text/xml skipNullOn='everywhere'
+ns ns0 http://schemas.xmlsoap.org/soap/envelope/
+ns ns01 http://arccorp.com/amm/schemas
+---
+{
+	ns0#Envelope: {
+		ns0#Body: {
+			ns01#UserRequest: {
+				ns01#RequestType: 'memo.memoDetail.viewMemo',
+				ns01#MemoCollection: {
+					ns01#memo: {
+						ns01#MEM_TDNR_FORMSERIAL: vars.filteredRequest.memo, 
+						ns01#agencyID: vars.filteredRequest.agentNumericCode,
+						ns01#carrierID: vars.filteredRequest.validatingAirlineDesignator
+					}
+			    }
+			}
+		}
+	}
+}]" doc:name="Memo Detail Request" doc:id="197162ae-05e2-4fa2-80f0-bd6daf111b6c" />
+		<ee:transform doc:name="Save the memo details" doc:id="97a9245f-5b23-4ee7-97b2-75957129761c" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="memoDetails" ><![CDATA[%dw 2.0
+output application/json
+---
+payload.Envelope.Body.UserResponse.MemoCollection.memo
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="f94187de-8124-4d72-bb93-0a544a37d106" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+
+{
+	transactionMetadata: 
+	{
+		correlationId: correlationId,
+		timestamp: now(),
+		message: "SUCCESS",
+		statusCode: "SUCCESS"
+	},
+	
+	transactionResponse:
+	{
+		message:
+			if( isEmpty(payload.serviceResponse.Envelope.Body.UserResponse.MemoCollection) == true and isEmpty(payload.serviceResponse.Envelope.Body.UserResponse.ErrorCollection) == false ) 
+				
+				payload.serviceResponse.Envelope.Body.UserResponse.ErrorCollection.*errors map(item,index) -> {
+					statusCode: "FAILED",
+					reason: 
+						if( sizeOf(item.ErrorMessage splitBy ":") <= 1 ) 
+					 	 	item.ErrorMessage 
+					 	else
+					  	 	(item.ErrorMessage splitBy ":")[1]
+				}
+			else 
+				null,
+		memos:
+			payload.serviceResponse.Envelope.Body.UserResponse.MemoCollection.*memo map(item, index) -> {
+				validatingAirlineDesignator: item.carrierID,				
+				agentNumericCode: item.agencyID,
+				memoNumber: item.MEM_TDNR_FORMSERIAL,
+				attachments: item.AttachmentCollection.*attachment map 
+					{
+						filename: $.MEA_NAME,
+						attachmentId: $.MEA_OID
+					},					
+				message: 
+					{
+					 statusCode:
+						using(x = payload.serviceResponse.Envelope.Body.UserResponse.ErrorCollection.*errors filter ((msg,index2) -> (msg.ErrorCode == item.MEM_OID)))
+					 	if(x != null and sizeOf(x) > 0)
+							"FAILED"
+						else 
+							"SUCCESS",
+					 reason:
+	 					 using(x = payload.serviceResponse.Envelope.Body.UserResponse.ErrorCollection.*errors filter ((msg,index2) -> (msg.ErrorCode == item.MEM_OID)))
+
+						 if(x != null and sizeOf(x) > 0) 
+							 if( sizeOf(x[0].ErrorMessage splitBy ":") <= 1 ) 
+						 	 	x[0].ErrorMessage 
+						 	else
+						  	 	(x[0].ErrorMessage splitBy ":")[1]
+						 else 
+						   null
+					}
+			}
+
+	}
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

@@ -1,0 +1,48 @@
+#%RAML 1.0 DataType
+
+displayName: Non-IAR Payments
+type: object
+
+properties:
+  
+  userName:
+    displayName: User Name
+    description: The name of the user who actioned the memo
+    type: string
+    example: 
+      "User-01"
+
+  paymentDate:
+    displayName: Payment   
+    description: The date the payment submitted was added to the memo; format is YYYY-MM-DD
+    type: string
+    example:
+      2019-02-25
+
+  amount:
+    displayName: Amount (USD)
+    description: Value of the payment made outside Memo Manager
+    type: number
+    example:
+      50.75
+
+  paymentNumber:
+    displayName: "Payment #"
+    description: Payment number of the payment made outside Memo Manager
+    type: string
+    example:
+      "123456789"
+
+  payer:
+    displayName: Payer
+    description: The name of the organization that issued the payment
+    type: string
+    example:
+      "Payer-01"
+  
+  paymentType:
+    displayName: Payment Type
+    description: The type of payment method used to pay the memo outside Memo Manager 
+    type: string
+    example: 
+      "Other"

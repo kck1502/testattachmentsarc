@@ -1,0 +1,14 @@
+{
+  "transactionMetadata": 
+  { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": "UNSUPPORTED_MEDIA_TYPE"
+  },
+  
+  "transactionResponse": 
+  {
+    "message": "The media type is invalid so the request cannot be completed. Please update the media type and resubmit the request. Please refer to the API portal documentation for the list of supported media types."
+  }
+}

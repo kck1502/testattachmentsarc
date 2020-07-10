@@ -1,0 +1,17 @@
+{
+  "transactionMetadata": {
+    "correlationId": "55fe8d30-7f23-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:14:21.56-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Agency Reason update successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "agencyReason": "Commission amount is incorrect"
+    }
+  }
+}

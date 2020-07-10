@@ -1,0 +1,34 @@
+#%RAML 1.0 DataType
+
+displayName: Correspondence
+type: object
+
+properties:
+  
+  author:
+    displayName: Author
+    description: Author of correspondence message 
+    type: string
+    example: 
+      "Author-01"
+  
+  message:
+    displayName: Message
+    description: Text of correspondence message
+    type: string
+    example: 
+      "This is gds correspondence"
+
+  date:
+    displayName: Date
+    description: Date of correspondence message; format is YYYY-MM-DD
+    type: datetime-only
+    example: 
+      2019-03-30T14:33:55
+  
+  correspondenceType:
+    displayName: Correspondence Type
+    description: Type of correspondence (Public or Private); Public correspondence can be viewed by all entities that have access to the memo; Private correspondence can only be viewed by the entity that created the private correspondence message
+    type: string
+    example: 
+      "Public"

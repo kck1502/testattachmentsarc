@@ -1,0 +1,49 @@
+#%RAML 1.0 DataType
+
+displayName: Carrier/Supplier Information
+type: object
+
+properties:
+  
+  name:
+    type: !include carrier-name.raml
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+
+  contactName:
+    displayName: Contact Name
+    description: The name of the person at the carrier that is to be the point of contact for the agent
+    type: string
+    required: false
+    example: 
+      "Test Contact"
+
+  phone:
+    displayName: Phone
+    description: The phone number at the carrier that is to be used by an agent
+    type: string
+    required: false
+    example: 
+      "111-111-1111"
+  
+  email:
+    displayName: Email
+    description: The email address identified by the carrier of the memo to be used by the agent as a point of contact
+    type: string
+    required: false
+    example: 
+      test@xyz.com
+      
+  ticketingPolicyWebsite:
+    displayName: Ticketing Policy Website
+    description: The website of the carrier's ticketing policy
+    type: string
+    example: 
+      "http://www.xyz.com/content/about-us/customer-commitment/rules-disclosure.aspx"
+  
+  address:
+    displayName: Address
+    description: Physical location of the carrier/supplier
+    type: !include address.raml
+    required: false

@@ -1,0 +1,17 @@
+{
+  "transactionMetadata": {
+    "correlationId": "c23ecd20-7f23-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:17:15.319-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "GDS Access Assignment successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "gdsAccess": "5235"
+    }
+  }
+}

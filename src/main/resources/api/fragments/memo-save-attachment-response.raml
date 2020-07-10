@@ -1,0 +1,42 @@
+#%RAML 1.0 DataType
+
+displayName: Attachment one or more attachments to a memo.
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      message:
+        required: false
+        type: string
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          attachments:
+            type: object          
+            properties:
+              filename:
+                displayName: File Name
+                description: The name of the attachment 
+                type: string
+                example:
+                  "Scenario.csv"
+              attachmentId:      
+                displayName: Attachment ID
+                description: Unique ID of the attachment
+                type: string
+                example:
+                  "479288319"          
+example: !include ../examples/memo-save-attachment-response.json    

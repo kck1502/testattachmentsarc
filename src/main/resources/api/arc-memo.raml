@@ -1,0 +1,1743 @@
+#%RAML 1.0
+
+title: Memo Manager
+description: "With ARC's Memo Manager API, users can perform the following functions using the endpoints listed below: Search Memos (/memos), Get Memo Details (/memos/details), Get Attachments (/memos/attachments/{attachmentId}), Pay Memos (/memos/pay), and Dispute Memos (/memos/dispute). Providing these functions within the API eliminates the need to manually perform these actions within the Memo Manager tool.\n
+
+The Search Memos (/memos) function enables users to retrieve a list of memo numbers and high-level information on those memos.\n
+
+The Get Memo Details (/memos/details) function allows users to retrieve all memo details for specific memo numbers. \n
+
+The Get Attachments (/memos/attachments/{attachmentId}) function enables the user to quickly download memo attachment files.\n
+
+The Pay Memo (/memos/pay) function allows the agency to pay one or more memos.\n
+
+The Dispute Memo (/memos/dispute) function allows the agency to open a dispute on one or more memos.  Additionally, as part of the dispute process, the Accept Dispute (/memos/accept) function enables the carrier to accept/resolve an open dispute, and the Reject Dispute (/memos/reject) function allows the carrier to reject it.\n
+
+The Add Correspondence (/memos/correspondence) function allows the agency to add a Correspondence for non-closed (Open or Inactive) Memos.\n
+
+The Add Non IAR Payment (/memos/noniarpayment) function allows the agency or carrier to add a Non IAR Payment for non-closed (Open or Inactive) Memos.\n
+
+The Memo Resolution (/memos/memoresoluton) function allows airline to update the Resolution Type of non-closed (Open or Inactive) memos.\n
+
+The Memo Reason (/memos/memoreason) function allows agencies to submit a Reason Catagory and Memo Reason 'change request' for non-closed (Open or Inactive) memos.\n
+
+The Agency Reason (/memos/agencyreason) function allows agencies to submit a Agency Reason for non-closed (Open or Inactive) memos.\n
+
+The GDS Assignment (/memos/gdsassignment) function allows airlines and agencies to grant or remove access to a GDS for non-closed (Open or Inactive) memos. GDS's can also remove it's own assignment from the memo.\n
+
+The Carrier Contact (/memos/carriercontact) function allows an airline to update the contact information for non-closed (Open or Inactive) memos.\n
+
+The Flex Field (/memos/flexfields) function allows airlines, agencies and GDSs to update the flex fields for their own memos.  (Add new values, update existing values, and remove existing values)\n
+
+The memo attachment (/memos/saveattachments) function allows airlines, agencies and GDSs to add attachments for their own memos. Airlines, agencies and GDSs can also remove an attachment (/memos/deleteattachment) that they had previously uploaded. Multiple attachments for a the same memo can also be included in a single API request.\n 
+
+Airlines, agencies and GDSs can also add multiple attachments for multiple memos (/memos/correspondattach) in a single API request. Along with this request, the user can also include a 'public' and/or 'private' correspondence to be included in the memos."
+
+version: 1.0.0
+protocols: [ HTTPS ]
+mediaType: [ application/json ]
+
+securitySchemes:
+  oauth_2_0: !include exchange_modules/96ca460a-5f17-415a-ba9b-489fb964fb79/security-okta/1.0.3/security-okta.raml
+
+traits:  
+  qpMemoSummary: !include traits/qp-memo-summary.raml
+  memoPayRequest: !include traits/memo-pay-request.raml
+  memoDisputeRequest: !include traits/memo-dispute-request.raml
+  memoAcceptDisputeRequest: !include traits/memo-accept-dispute-request.raml
+  memoRejectDisputeRequest: !include traits/memo-reject-dispute-request.raml
+  
+types:
+  nonIARPayment:
+    type: !include fragments/non-iar-payment.raml
+    example: !include examples/non-iar-payment.json
+  
+  computation:
+    type: !include fragments/computation.raml
+    example: !include examples/computation.json
+
+  financialDetails:
+    type: !include fragments/memo-financial-detail.raml 
+    example: !include examples/memo-financial-detail.json
+
+  memoType:
+    type: !include fragments/memo-type.raml  
+
+  attachment:
+    type: !include fragments/attachment.raml
+    example: !include examples/attachment.json
+  
+  dispute:
+    type: !include fragments/dispute.raml
+    example: !include examples/dispute.json
+
+  memoReason:
+    type: !include fragments/memo-reason.raml
+    example: !include examples/memo-reason.json
+
+  carrierDetails:
+    type: !include fragments/carrier-details.raml
+    example: !include examples/carrier-details.json 
+
+  agencyNumber:
+    type: !include fragments/agentNumericCode.raml
+  
+  memoNumber:
+    type: !include fragments/memo-number.raml
+  
+  secondaryStatus:
+    type: !include fragments/enum-memo-secondary-status.raml
+  
+  correspondence:
+    type: !include fragments/correspondence.raml
+    example: !include examples/correspondence.json 
+
+  memoDetailRequestDeprecated:
+    type: !include fragments/memo-detail-request-deprecated.raml
+
+  memoDetailRequestRevised:
+    type: !include fragments/memo-detail-request.raml
+  
+  memoDetailRequest:
+    type: [
+      memoDetailRequestDeprecated | memoDetailRequestRevised]
+
+  primaryStatus:
+    type: !include fragments/enum-memo-primary-status.raml
+
+  validatingAirlineDesignator:
+    type: !include fragments/validatingAirlineDesignator.raml
+
+  memoSummary:
+    type: !include fragments/memo-summary.raml
+    example: !include examples/memo-summary.json
+
+  errorResponse:
+    type: !include fragments/error-response.raml
+    example: !include examples/error-response.json
+
+  carrierName:
+    type: !include fragments/carrier-name.raml
+
+  reasonChange:
+    type: !include fragments/memo-reason-change.raml
+    example: !include examples/memo-reason-change.json
+
+  resolutionType:
+    type: !include fragments/enum-resolution-type.raml
+  
+  gdsDetails:
+    type: !include fragments/gds-details.raml
+    example: !include examples/gds-details.json
+
+  tax:
+    type: !include fragments/tax.raml
+    example: !include examples/tax.json
+
+  summaryResponse:
+    type: !include fragments/memo-summary-response.raml 
+    example: !include examples/memo-summary-response.json
+
+  flexFields:
+    type: !include fragments/entity-flex-fields.raml   
+    example: !include examples/entity-flex-fields.json
+
+  address:
+    type: !include fragments/address.raml
+    example: !include examples/address.json
+
+  detailResponse:
+    type: !include fragments/memo-detail-response.raml 
+    example: !include examples/memo-detail-response.json
+  
+  ticket:
+    type: !include fragments/ticket.raml
+    example: !include examples/ticket.json
+
+  iarPayment:
+    type: !include fragments/iar-payment.raml
+    example: !include examples/iar-payments.json
+
+  transactionStatusCode:
+    type: !include fragments/enum-transaction-response-status.raml
+
+  transactionMetadata:
+    type: !include fragments/transaction-metadata.raml
+
+  memoPayResponse:
+    type: !include fragments/memo-pay-response.raml
+
+  memoDisputeResponse:  
+    type: !include fragments/memo-dispute-response.raml
+    
+
+/memos:
+  displayName: Memos
+  
+  get:
+    displayName: Search Memos
+    description: By submitting a combination of search parameters, users can retrieve a list of memo numbers and high-level information for each memo. If more than 100 memos fall within the search criteria, the results will be paginated.
+    securedBy: [ oauth_2_0  ]
+    is: 
+      [
+         qpMemoSummary
+      ]
+    responses: 
+      200: 
+        body:
+          application/json:
+            type: !include fragments/memo-summary-response.raml
+            example: !include examples/memo-summary-response.json
+
+      400:
+        body:
+          application/json:
+            displayName: 400 Error
+            type: errorResponse
+            example: !include examples/errors/400-error-response.json
+
+      403:
+        body:
+          application/json:
+            displayName: 403 Error
+            type: errorResponse
+            example: !include examples/errors/403-error-response.json
+      
+      404:
+        body:
+          application/json:
+            displayName: 404 Error
+            type: errorResponse
+            example: !include examples/errors/404-error-response.json
+      
+      405:
+        body:
+          application/json:
+            displayName: 405 Error
+            type: errorResponse
+            example: !include examples/errors/405-error-response.json
+
+      406:
+        body:
+          application/json:
+            displayName: 406 Error
+            type: errorResponse
+            example: !include examples/errors/406-error-response.json
+                            
+      408:
+        body:
+          application/json:
+            displayName: 408 Error
+            type: errorResponse
+            example: !include examples/errors/408-error-response.json
+
+      415:
+        body:
+          application/json:
+            displayName: 415 Error
+            type: errorResponse
+            example: !include examples/errors/415-error-response.json
+
+      500:
+        body:
+          application/json:
+            displayName: 500 Error
+            type: errorResponse
+            example: !include examples/errors/500-error-response.json
+
+      503:
+        body:
+          application/json:
+            displayName: 503 Error
+            type: errorResponse
+            example: !include examples/errors/503-error-response.json
+  
+  /details:
+    displayName: Memo Details
+    
+    post:
+      displayName: Get Memo Details
+      description: "By submitting a Memo # (and optional Carrier #), users can retrieve all details for the memo.\nUsers can submit up to 50 memo numbers within the same request by separating each memo number with a comma. If requesting multiple memo numbers and a Carrier #, the response will only include memo details for the memo numbers that belong to the Carrier # submitted."
+
+      securedBy: [ oauth_2_0  ]
+      body:
+        application/json:
+          type: memoDetailRequest
+
+      responses:
+        200: 
+          body:
+            application/json:
+              type: !include fragments/memo-detail-response.raml
+              example: !include examples/memo-detail-response.json
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /attachments/{attachmentId}:
+    displayName: Memo Attachment
+    uriParameters:
+      attachmentId:
+        displayName: Attachment ID
+        description: Unique ID of the attachment
+        type: integer
+        example: 
+          479288319
+    
+    get:
+      displayName: Get Attachments
+      description: "By submitting the unique Attachment ID which can be found in the memo details response, users can retrieve a downloadable version of the attachment(s) included in the memo."
+
+      securedBy: [ oauth_2_0  ]
+      responses:
+        200: 
+          body:
+            application/octet-stream:
+              type: file
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json    
+
+  /pay:
+    displayName: Pay Memo
+
+    post: 
+      displayName: Pay Memo
+      description: "By submitting memo identifying details and a payment amount, users can pay memos via the API. Up to 50 memos can be paid within a single request."
+
+      securedBy: [ oauth_2_0 ]
+      is:
+        [
+          memoPayRequest
+        ]
+        
+      responses:
+        200: 
+          body:
+            application/json:
+              type: memoPayResponse
+              examples:
+                success:
+                  !include examples/memo-pay-success-response.json
+                failure: 
+                  !include examples/memo-pay-failure-response.json
+
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json      
+
+              
+  /dispute:
+    displayName: Dispute Memo
+
+    post: 
+      displayName: Dispute Memo
+      description: "By submitting memo identifying details and a dispute amount, users can dispute memos via the API. Up to 50 memos can be disputed within a single request."
+
+      securedBy: [ oauth_2_0 ]
+      is: 
+        [
+        memoDisputeRequest:          
+        ]
+        
+      responses:
+        200: 
+          body:
+            application/json:
+              type: memoDisputeResponse
+              examples:
+                success:
+                  !include examples/memo-dispute-success-response.json
+                failure: 
+                  !include examples/memo-dispute-failure-response.json
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json      
+
+  /accept:
+    displayName: Accept Dispute Memo
+
+    post: 
+      displayName: Accept Dispute Memo
+      description: "By submitting memo identifying details, carriers can accept a dispute. Up to 50 disputes can be accepted within a single request."
+
+      securedBy: [ oauth_2_0 ]
+      is: 
+        [
+        memoAcceptDisputeRequest:
+        ]
+        
+      responses:
+        200: 
+          body:
+            application/json:
+              type: !include fragments/accept-response.raml
+              examples:
+                success:
+                  !include examples/memo-accept-success-response.json
+                failure: 
+                  !include examples/memo-accept-failure-response.json
+                  
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json      
+
+  /reject:
+    displayName: Reject Dispute Memo
+
+    post: 
+      displayName: Reject Dispute Memo
+      description: "By submitting memo identifying details, carriers can reject a dispute. Up to 50 disputes can be rejected within a single request."
+
+      securedBy: [ oauth_2_0 ]
+      is: 
+        [
+        memoRejectDisputeRequest:                   
+        ]
+        
+      responses:
+        200: 
+          body:
+            application/json:
+              type: !include fragments/accept-response.raml
+              examples:
+                success:
+                  !include examples/memo-reject-success-response.json
+                failure: 
+                  !include examples/memo-reject-failure-response.json
+                  
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json   
+
+  /correspondence:
+    displayName: Add Correspondence
+    post:
+      displayName: Add Correspondence
+      description: By submitting memo identifying details, carriers, agencies and system providers can add new correspondence for non-closed (Open and Inactive) memos.
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-correspondence-request.raml
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-correspondence-response.raml
+
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json   
+
+  /noniarpayment:
+    displayName: Add Non IAR Payment
+    post:
+      displayName: Add Non IAR Payment
+      description: By submitting memo identifying details, carriers and agencies can add Non IAR Payment for non-closed (Open and Inactive) memos.
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-non-iar-payment-request.raml
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-non-iar-payment-response.raml
+
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /memoresolution:
+    displayName: Memo Resolution
+    post:
+      displayName: Memo Resolution
+      description: By submitting memo identifying details, carriers can update the Resolution Type field if the memo has Ticketing Information.
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-memo-resolution-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-memo-resolution-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /memoreason:
+    displayName: Memo Reason
+    post:
+      displayName: Memo Reason
+      description: By submitting memo identifying details, agencies can submit a Reason Category and Memo Reason 'change requests'.
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-memo-reason-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-memo-reason-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /agencyreason:
+    displayName: Agency Reason
+    post:
+      displayName: Agency Reason
+      description: By submitting memo identifying details, agencies can submit an Agency Reason. 
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-agency-reason-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-agency-reason-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /balance:
+    displayName: Adjust Balance
+    post:
+      displayName: Adjust Balance
+      description: By submitting memo identifying details, carriers can adjust the balance of open and inactive memos. 
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-adjust-balance-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-adjust-balance-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /gdsassignment:
+    displayName: Assign GDS
+    post:
+      displayName: Assign GDS
+      description: By submitting memo identifying details, carriers and agencies can grant and remove access to a GDS for specific memos. A GDS (System Provider) also has the capability to remove there access from a memo.
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-gds-assignment-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-gds-assignment-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /carriercontact:
+    displayName: Carrier Contact Information
+    patch:
+      displayName: Carrier Contact Information
+      description: By submitting memo identifying details, carriers can update any of the contact information on a memo.
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-carrier-contact-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-carrier-contact-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /flexfields:
+    displayName: Update Flex Fields
+    patch:      
+      displayName: Update Flex Fields
+      description: By submitting memo identifying details, users (airlines, agencies, GDSs) can update the flex fields for their own memos.  (Add new values, update existing values, and remove existing values)
+      securedBy: [ oauth_2_0 ]
+      body:        
+        application/json:
+          type: !include fragments/memo-flex-field-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-flex-field-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /saveattachments:
+    displayName: Save attachments
+    post:
+      displayName: Save attachments to a memo
+      description: ! "By submitting memo identifying details, carriers, agencies and system providers can add attachments to existing memos. To attach a file or files to a memo, provide the validatingAirlineDesignator,  agentNumericCode, memo and fileData. The body of the request should be structured as follows:\n
+
+validatingAirlineDesignator: 006\n
+
+agentNumericCode: 053112222\n
+
+memo: 8960555123\n
+
+fileData: (attachment data from first file)\n
+
+fileData: (attachment data from second file if needed)"
+      securedBy: [ oauth_2_0 ]
+      body:        
+        binary/octet-stream:      
+        multipart/form-data:          
+          properties:
+            validatingAirlineDesignator: string 
+            agentNumericCode: string
+            memo: string
+            fileData:
+              type: file
+              required: true
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-save-attachment-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+
+  /deleteattachment:      
+    displayName: Delete memo attachment
+    delete: 
+      displayName: Delete memo attachment
+      description: By submitting memo identifying details, carriers, agencies and system providers can delete an attachment that is associated with a memo. 
+      securedBy: [ oauth_2_0 ]
+      body:
+        application/json:
+          type: !include fragments/memo-delete-attachment-request.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-delete-attachment-response.raml
+
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+                              
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json   
+          
+  /correspondattach:
+    displayName: Save correspondence and attachments
+    post:
+      displayName: Save correspondence and attachments
+      description: ! "By submitting memo identifying details, carriers, agencies and system providers can add a public and/or private coresspondence to one or more memos and optionally attach one or more files to the selected memos. To select the memos (at least one), provide the airline code, arc # and memo # separted by a semicolin. The public correspondence message (optional) and/or privte correspondence message will be applied to each memo in the list. The selected attachments (optional) will also be applied to each of the provided memos. The body of the request should be structured as follows:\n
+
+memo: 006;49560744;8960222333\n
+
+memo: 001;49560744;8960444555\n
+
+publicCorrespondence: These memos are in dispute.\n
+
+privateCorrespondence: These memos are in dispute.\n
+
+fileData: (attachment data from first file)\n
+
+fileData: (attachment data from second file if needed)"      
+      securedBy: [ oauth_2_0 ]
+      body:
+        binary/octet-stream:      
+        multipart/form-data:
+          properties:
+            memo: string
+            publicCorrespondence: string
+            privateCorrespondence: string
+            fileData:
+              type: file
+              required: false
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-correspond-attach-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json
+                   
+  /disputeattach:
+    displayName: Disputes and attachments
+    post:
+      displayName: Disputes and attachments
+      description: ! "By submitting memo identifying details, agencies can dispute multiple memos, add a public correspondence and attach one or more files to the selected memos. To select the memos to be disputed (at least one), provide the airline code, arc #, memo # and dispute amount separted by a semicolin. The public correspondence message (required) will be applied to each memo in the list. The selected attachments (optional) will also be applied to each of the provided memos. The body of the request should be structured as follows:\n
+
+memo: 006;49560744;8960222333;185.00\n
+
+memo: 001;49560744;8960444555;200.00\n
+
+publicCorrespondence: These memos are in dispute.\n
+
+fileData: (attachment data from first file)\n
+
+fileData: (attachment data from second file if needed)"
+      securedBy: [ oauth_2_0 ]
+      body:
+        binary/octet-stream:      
+        multipart/form-data:
+          properties:            
+            memo: string
+            publicCorrespondence: string
+            fileData:
+              type: file
+              required: false
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include fragments/memo-dispute-attach-response.raml
+        400:
+          body:
+            application/json:
+              displayName: 400 Error
+              type: errorResponse
+              example: !include examples/errors/400-error-response.json
+        403:
+          body:
+            application/json:
+              displayName: 403 Error
+              type: errorResponse
+              example: !include examples/errors/403-error-response.json
+        404:
+          body:
+            application/json:
+              displayName: 404 Error
+              type: errorResponse
+              example: !include examples/errors/404-error-response.json
+        405:
+          body:
+            application/json:
+              displayName: 405 Error
+              type: errorResponse
+              example: !include examples/errors/405-error-response.json
+        406:
+          body:
+            application/json:
+              displayName: 406 Error
+              type: errorResponse
+              example: !include examples/errors/406-error-response.json
+        408:
+          body:
+            application/json:
+              displayName: 408 Error
+              type: errorResponse
+              example: !include examples/errors/408-error-response.json
+        415:
+          body:
+            application/json:
+              displayName: 415 Error
+              type: errorResponse
+              example: !include examples/errors/415-error-response.json
+        500:
+          body:
+            application/json:
+              displayName: 500 Error
+              type: errorResponse
+              example: !include examples/errors/500-error-response.json
+        503:
+          body:
+            application/json:
+              displayName: 503 Error
+              type: errorResponse
+              example: !include examples/errors/503-error-response.json    

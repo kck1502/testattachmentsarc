@@ -1,0 +1,59 @@
+#%RAML 1.0 DataType
+
+displayName: IAR Payments
+type: object
+
+properties:
+
+  userName:
+    displayName: User Name
+    description: The name of the user who made the payment
+    type: string
+    example: 
+      "User-01"
+
+  submittedOn:
+    displayName: Submitted
+    description: The date the IAR payment was submitted; format is YYYY-MM-DD
+    type: date-only
+    example: 
+      2019-03-30
+      
+  amount:
+    displayName: Amount (USD)
+    description: The value of the memo payment settled through IAR
+    type: number
+    example: 
+      100.75
+
+  transactionNumber:
+    displayName: "IAR Transaction #"
+    description: A unique identifier assigned to each transaction settled through IAR
+    type: string
+    required: false
+    example: 
+      "890019020401010060"
+  
+  status:
+    displayName: Status
+    description: The status of the payment in IAR
+    type: string
+    example: 
+      "Sent"
+
+  IARSettled:
+    displayName: IAR Settled
+    description: Date the transaction was settled in IAR; format is YYYY-MM-DD
+    type: string
+    required: false
+    example: 
+      "2019-03-300000000"
+  
+  settledAmount:
+    displayName: Settled Amount  
+    description: The settled amount of the memo
+    type: number
+    minimum: 0.00 
+    required: false
+    example: 
+      100.75

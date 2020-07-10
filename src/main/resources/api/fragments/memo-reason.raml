@@ -1,0 +1,28 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Reason
+type: object
+
+properties:
+
+  categoryType:
+    displayName: Category Type
+    description: The primary reason category assigned to a memo
+    type: string
+    example: 
+      "Booking"
+
+  reasonType:
+    displayName: Memo Reason Type
+    description: The airline-assigned reason for the memo being issued
+    type: string
+    example: 
+      "CHURNING"
+
+  note:
+    displayName: Note
+    description: Additional information regarding the reason a memo was issued
+    type: string
+    required: false
+    example: 
+      "Churning Violation"           

@@ -1,0 +1,51 @@
+#%RAML 1.0 DataType
+
+displayName: Computations
+type: object
+
+properties:
+  
+  fare:
+    displayName: Fare (USD)
+    description: The value of the fare
+    type: number
+    default: 0
+    required: false
+    example:
+      100.75
+
+  commission:
+    displayName: Commission (USD)
+    description: The value of the commission
+    type: number
+    default: 0
+    required: false
+    example:
+      10.75
+
+  serviceCharge:
+    displayName: Service Charge (USD)
+    description: The value of the service charge
+    type: number
+    default: 0
+    required: false
+    example:
+      10.75
+  
+  penalty:
+    displayName: Penalty (USD)
+    description: The value of the penalty
+    type: number
+    default: 0
+    required: false
+    example:
+      10.75
+  
+  otherFees:
+    displayName: Other Fees (USD)
+    description: The value of any other fees assessed by the airline
+    type: number
+    default: 0
+    required: false
+    example:
+      10.75

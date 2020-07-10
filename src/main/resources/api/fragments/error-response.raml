@@ -1,0 +1,21 @@
+#%RAML 1.0 DataType
+
+displayName: Error Response
+type: object
+
+properties:
+
+  transactionMetadata:
+    displayName: Transaction Metadata
+    description: Contains metadata about the response 
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    description: Contains information about the response
+    properties:
+      message:
+        displayName: Response Status Message 
+        description: Detailed reason for the response status code
+        type: string
+        example:
+          "The request cannot be completed because the requested resource cannot be found. Please update the request and resubmit. Refer to the API portal documentation for the list of supported resources."

@@ -1,0 +1,14 @@
+#%RAML 1.0 DataType
+
+displayName: Response from dispute/attach request
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    type: !include dispute-attach-response.raml
+
+example: !include ../examples/memo-dispute-attach-response.json
+  

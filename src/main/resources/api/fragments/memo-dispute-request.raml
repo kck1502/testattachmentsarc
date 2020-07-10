@@ -1,0 +1,40 @@
+#%RAML 1.0 DataType
+
+displayName: Dispute Memo
+type: object 
+
+properties:  
+  
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: false
+  
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    
+  memo:
+    type: !include memo-number.raml
+
+  amount:
+    type: number
+    required: true
+    minimum: 1.00
+    maximum: 999999999.99
+    description: The amount being disputed on the memo.
+    example:
+      2500.55
+    
+  correspondence:
+    type: string
+    required: true
+    minLength: 1
+    maxLength: 4000
+    description: An message that can be tied to the request.
+    example:
+      "Memo dispute has been made."
+
+  attachments:
+    required: false
+    type: !include attachments.raml
+    
+example: !include ../examples/memo-dispute-request.json

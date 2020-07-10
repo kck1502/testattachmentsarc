@@ -1,0 +1,30 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Reason
+type: object
+
+properties:
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    required: true
+     
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: true
+  
+  memo:
+    type: !include memo-number.raml
+    required: true
+
+  reasonCatagory:
+    type: !include enum-reason-catagory.raml
+    required: true
+
+  memoReason:
+    type: !include enum-memo-reason.raml
+    required: true
+
+example: !include ../examples/memo-memo-reason-request.json    
+      
+    

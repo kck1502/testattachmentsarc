@@ -1,0 +1,70 @@
+#%RAML 1.0 DataType
+
+displayName: Non-IAR Payments
+type: object
+
+properties:
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    required: true
+     
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: true
+  
+  memo:
+    type: !include memo-number.raml
+    required: true
+
+  amount:
+    displayName: Amount (USD)
+    description: Value of the payment made outside Memo Manager
+    type: number
+    required: true
+    example:
+      50.75
+
+  payer:
+    displayName: Payer
+    description: The name of the organization that issued the payment
+    type: string
+    required: false
+    example:
+      "Payer-01"
+  
+  paymentNumber:
+    displayName: "Payment #"
+    description: Payment number of the payment made outside Memo Manager
+    type: string
+    required: false
+    example:
+      "123456789"
+
+  paymentType:
+    displayName: Payment Type
+    description: The type of payment method used to pay the memo outside Memo Manager 
+    type: string
+    required: false
+    example: 
+      "Check"
+
+  paymentDate:
+    displayName: Payment Date  
+    description: The date the payment submitted was added to the memo; format is YYYY-MM-DD
+    type: string
+    required: false
+    example:
+      2019-02-25
+
+  correspondence:
+    type: string
+    required: false
+    minLength: 1
+    maxLength: 4000
+    description: An message that can be tied to the request.
+    example:
+      "Added Memo Correspondence."
+
+example: !include ../examples/memo-non-iar-payment-request.json      
+    

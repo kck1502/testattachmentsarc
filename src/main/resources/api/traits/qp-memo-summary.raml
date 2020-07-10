@@ -1,0 +1,70 @@
+#%RAML 1.0 Trait
+
+queryParameters:
+  
+  primaryStatus:
+    type: !include ../fragments/enum-memo-primary-status.raml
+    required: false
+
+  secondaryStatus:
+    type: !include ../fragments/enum-memo-secondary-status.raml
+    required: false
+
+  loadFromDate:
+    displayName: Load From Date
+    description: The beginning date in the Load Date search; format is YYYY-MM-DD
+    type: date-only
+    required: false
+    example:
+      2019-01-30
+
+  loadToDate:
+    displayName: Load To Date
+    description: The ending date in the Load Date search; format is YYYY-MM-DD
+    type: date-only
+    required: false
+    example:
+      2019-04-30
+
+  lastModifiedFromDate:
+    displayName: Last Modified From Date
+    description: The beginning date in the Last Modified Date search; format is YYYY-MM-DD
+    type: date-only
+    required: false
+    example:
+      2019-03-31
+
+  lastModifiedToDate:
+    displayName: Last Modified To Date
+    description: The ending date in the Last Modified Date search; format is YYYY-MM-DD
+    type: date-only
+    required: false
+    example:
+      2019-03-30
+
+  validatingAirlineDesignator:
+    type: !include ../fragments/validatingAirlineDesignator.raml
+    required: false
+
+  agentNumericCode:
+    type: !include ../fragments/agentNumericCode.raml
+    required: false
+
+  agencyIncludeEntireOrg:
+    displayName: Include Branches
+    description: Option to include entire agency organization in search; only applicable to Home Offices (HOL)
+    type: boolean
+    required: false
+    default: false
+    example: 
+      false
+  
+  page:
+    displayName: Page
+    description: The search result page to retrieve
+    type: integer
+    required: false
+    default: 1
+    multipleOf: 1
+    example:
+      1        

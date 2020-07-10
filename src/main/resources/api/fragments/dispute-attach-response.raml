@@ -1,0 +1,54 @@
+#%RAML 1.0 DataType
+
+displayName: Dispute Attach response
+description: Memo Dispute Attach Response
+
+type: object
+properties:
+  memoNumber:
+    type: !include memo-number.raml
+    required: false
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    required: false
+
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: false
+
+  attachments:
+    type: object
+    required: false          
+    properties:
+      filename:
+        displayName: File Name
+        description: The name of the attachment 
+        type: string
+        example:
+          "Scenario.csv"
+      attachmentId:      
+        displayName: Attachment ID
+        description: Unique ID of the attachment
+        type: string
+        example:
+          "479288319"
+  correspondence:
+    displayName: Correspondence
+    description: Messages between entities
+    type: array
+    items: !include correspondence.raml
+    required: false                 
+  message:
+    type: object
+    required: false
+    properties:
+      statusCode: 
+        type: string
+        example:
+          'FAILED'        
+      reason:
+        type: string
+        required: false
+        example:
+          'Not a valid memo'

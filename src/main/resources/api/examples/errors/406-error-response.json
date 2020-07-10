@@ -1,0 +1,14 @@
+{
+  "transactionMetadata": 
+  { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": "REQUEST_NOT_ACCEPTABLE"
+  },
+  
+  "transactionResponse": 
+  {
+    "message": "The request header is invalid so the request cannot be completed. Please update the request header and resubmit the request. Refer to the API portal documentation for the list of accepted headers."
+  }
+}

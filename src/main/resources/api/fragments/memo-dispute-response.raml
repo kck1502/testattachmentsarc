@@ -1,0 +1,25 @@
+#%RAML 1.0 DataType
+
+displayName: Dispute Memo Response
+type: object
+
+properties:
+  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+    example:
+      {
+        "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+        "timestamp": "2019-04-25T10:14:00.748-04:00", 
+        "message": "SUCCESS",
+        "statusCode": "SUCCESS"
+      }
+  
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    type: object
+    properties:
+      memos: 
+        type: array
+        items: !include dispute-response.raml

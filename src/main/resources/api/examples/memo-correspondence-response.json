@@ -1,0 +1,18 @@
+{
+  "transactionMetadata": {
+    "correlationId": "60039fc0-7f21-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:00:05.131-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Add correspondence successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "correspondence": "Dispute this memo based on commission",
+      "corrType": "P"
+    }
+  }
+}

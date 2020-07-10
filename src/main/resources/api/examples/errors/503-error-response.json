@@ -1,0 +1,14 @@
+{
+  "transactionMetadata": 
+  { 
+    "correlationId": "5e72c080-6764-11e9-83cb-0028f8be009a",
+    "timestamp": "2019-04-25T10:14:00.748-04:00", 
+    "message": "FAILED",
+    "statusCode": "SERVICE_UNAVAILABLE"
+  },
+  
+  "transactionResponse": 
+  {
+    "message": "The service is unavailable. Please resubmit the request at a later time. Subscribe to ARC's Status Dashboard to be informed of the status of the service."
+  }
+}         

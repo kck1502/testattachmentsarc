@@ -1,0 +1,24 @@
+#%RAML 1.0 DataType
+
+displayName: Accept Dispute
+type: object
+
+properties:  
+  
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: false
+  
+  memo:
+    type: !include memo-number.raml
+
+  correspondence:
+    type: string
+    required: false
+    minLength: 1
+    maxLength: 4000
+    description: An optional message that can be tied to the request.
+    example:
+      Accepted Memo Dispute.
+    
+example: !include ../examples/memo-accept-dispute-request.json

@@ -1,0 +1,17 @@
+{ 
+  "name": "XYZ AIRLINES",
+  "validatingAirlineDesignator": "100",
+  "contactName": "Test Contact",
+  "phone": "111-111-1111",
+  "email": "test@xyz.com",
+  "ticketingPolicyWebsite": "http://www.xyz.com/content/about-us/customer-commitment/rules-disclosure.aspx",
+  "address": {
+    "address1": "Test - Address - 01",
+    "address2": "Test - Address - 02",
+    "address3": "Test - Address - 03",
+    "city": "Tampa",
+    "state": "FL",
+    "postalCode": "33647",
+    "country": "US"
+  }
+}  

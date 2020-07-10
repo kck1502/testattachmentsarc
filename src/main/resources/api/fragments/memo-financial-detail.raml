@@ -1,0 +1,32 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Financial Details (USD)
+type: object
+
+properties:
+
+  carrierComputation:
+    displayName: Carrier Computation
+    description: Carrier calculated amounts for the memo
+    type: !include computation.raml
+    example:
+      {
+        "otherFees": 10.75,
+        "fare": 100.75,
+        "serviceCharge": 10.75,
+        "penalty": 10.75,
+        "commission": 10.75
+      }
+
+  agentComputation:
+    displayName: Agent Computation
+    description: Agency identified amounts for the memo
+    type: !include computation.raml
+    example:
+      {
+        "otherFees": 10.75,
+        "fare": 100.75,
+        "serviceCharge": 10.75,
+        "penalty": 10.75,
+        "commission": 10.75
+      }

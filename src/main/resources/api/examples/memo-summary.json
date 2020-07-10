@@ -1,0 +1,13 @@
+{
+  "memoNumber": "8960000001",
+  "memoType": "Debit",
+  "validatingAirlineDesignator": "100",
+  "carrierName": "XYZ AIRLINES",
+  "agentNumericCode": "11111111",
+  "primaryStatus": "Closed",
+  "secondaryStatus": "Settled in IAR",
+  "currentBalance": 200.75,
+  "age": 20,
+  "resolutionType": "Carrier",
+  "lastCorrespondent": "Carrier"
+}

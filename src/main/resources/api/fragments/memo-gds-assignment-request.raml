@@ -1,0 +1,24 @@
+#%RAML 1.0 DataType
+
+displayName: GDS Assignment
+type: object
+
+properties:
+
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    required: true
+     
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: true
+  
+  memo:
+    type: !include memo-number.raml
+    required: true
+
+  gdsAccess:
+    type: !include enum-memo-service-provider.raml
+    required: true
+
+example: !include ../examples/memo-gds-assignment-request.json    

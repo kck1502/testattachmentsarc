@@ -1,0 +1,13 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Type
+description: The memo type describes the type of memo that was issued by the ARC participating carrier (896 = debit, 897 = credit, 898 = recall commission statements)
+type:
+enum: 
+  [ 
+    Debit,
+    Credit,
+    Recall Commission
+  ]   
+example: 
+  Debit

@@ -1,0 +1,31 @@
+#%RAML 1.0 DataType
+
+displayName: Delete attachment
+type: object
+
+properties:
+  
+  agentNumericCode:
+    type: !include agentNumericCode.raml
+    required: false
+  
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+    
+  memo:
+    type: !include memo-number.raml
+
+  attachmentId:
+    displayName: Attachment ID
+    description: Unique ID of the attachment
+    type: string
+    example:
+      "479288319"
+        
+example:
+  {
+    "validatingAirlineDesignator": "100", 
+    "agentNumericCode": "11111111",
+    "memo": "8960000001",
+    "attachmentId": "479288319"
+  }

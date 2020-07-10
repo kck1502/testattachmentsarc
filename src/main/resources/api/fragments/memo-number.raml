@@ -1,0 +1,11 @@
+#%RAML 1.0 DataType
+
+displayName: "Memo #"
+description: A 10-digit number assigned to each memo; the first 3 digits define the memo type (896 = debit, 897 = credit, 898 = recall commission statements)
+type: string
+minLength: 10
+maxLength: 10
+pattern: ^[0-9]+
+example: 
+  "8960000001"
+  

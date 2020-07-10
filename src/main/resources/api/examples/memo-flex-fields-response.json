@@ -1,0 +1,22 @@
+{
+  "transactionMetadata": {
+    "correlationId": "97125520-7f25-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:30:15.953-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Flex Field update successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "field1": "Freeform data in FF1",
+      "field2": "Freeform data in FF2",
+      "field3": "Discover *1117",
+      "field4": "Track this memo further",
+      "field5": "Need to dispute",
+      "field6": "Visa *2222"
+    }
+  }
+}

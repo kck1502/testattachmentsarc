@@ -1,0 +1,61 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Tickets
+type: object
+
+properties:
+  
+  validatingAirlineDesignator:
+    type: !include validatingAirlineDesignator.raml
+  
+  ticketNumber:
+    displayName: "Ticket #"
+    description: The Standard Traffic Document number on the source document
+    type: string
+    example: 
+      "1111111111"
+  
+  systemProvider:
+    displayName: System Provider
+    description: The unique ID of the system provider
+    type: string
+    example: 
+      "1000"
+
+  amount:
+    displayName: "Ticket Amount (USD)"
+    description: The total amount of a ticket transaction (base fare plus taxes)
+    type: number
+    minimum: 0.00
+    example: 
+      200.75
+
+  issuedOn:
+    displayName: Issued On
+    description: The date a ticket was issued; format is YYYY-MM-DD 
+    type: date-only
+    example: 
+      2019-02-28
+  
+  passenger:
+    displayName: Passenger
+    description: Name of the passenger on the ticket
+    type: string
+    example: 
+      "User-01"
+
+  employeeId:
+    displayName: Employee ID
+    description: Contains information about the individual responsible for the original sale transaction of the related document;  It may contain the employee id number, the employee name or some other unique method of correlating sales transaction to the memo
+    type: string
+    example: 
+      "Test"
+  
+  productCategory:
+    displayName: Product Category
+    description: Information about the product the consumer purchased via or in connection with the related document; This category is defined by the business unit supporting the products represented in this element and is for non-air suppliers only
+    type: string
+    required: false
+    example: 
+      "Category-XYZ-01"
+      

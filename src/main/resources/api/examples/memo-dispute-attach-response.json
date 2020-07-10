@@ -1,0 +1,62 @@
+{
+  "transactionMetadata": {
+    "correlationId": "37db0560-8e2b-11ea-96d0-c8f750c849f4",
+    "timestamp": "2020-05-04T13:18:26.656-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "memos": [
+      {
+        "memoNumber": "8960900900",
+        "validatingAirlineDesignator": "006",
+        "agentNumericCode": "05600313",
+        "attachments": [
+          {
+            "filename": "dates.csv",
+            "attachmentId": "480069214"
+          },
+          {
+            "filename": "calendar.pdf",
+            "attachmentId": "480069215"
+          }
+        ],
+        "correspondence": [
+          {
+            "author": "0oaljw9dhsAI92KzZ356",
+            "message": "We are disputing these 2 memos",
+            "correspondenceType": "Public"
+          }
+        ],
+        "message": {
+          "statusCode": "SUCCESS"
+        }
+      },
+      {
+        "memoNumber": "8960800800",
+        "validatingAirlineDesignator": "006",
+        "agentNumericCode": "05600313",
+        "attachments": [
+          {
+            "filename": "dates.csv",
+            "attachmentId": "480069216"
+          },
+          {
+            "filename": "calendar.pdf",
+            "attachmentId": "480069217"
+          }
+        ],
+        "correspondence": [
+          {
+            "author": "0oaljw9dhsAI92KzZ356",
+            "message": "We are disputing these 2 memos",
+            "correspondenceType": "Public"
+          }
+        ],
+        "message": {
+          "statusCode": "SUCCESS"
+        }
+      }
+    ]
+  }
+}

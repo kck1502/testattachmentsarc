@@ -1,0 +1,9 @@
+http:
+  port: "8091"
+json:
+  logger:
+    application:
+      name: "testattachmentsarc"
+      version: "1.0.1"
+      env: "Dev"
+      api-key: "e8c44d6f1b91d4e334fe4b3d16a6c4b4"

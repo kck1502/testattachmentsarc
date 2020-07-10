@@ -1,0 +1,38 @@
+#%RAML 1.0 DataType
+
+displayName: Memo Resolution Response
+type: object
+  
+properties:  
+  transactionMetadata:
+    type: !include transaction-metadata.raml
+
+  transactionResponse:
+    displayName: Transaction Response
+    description: Contains information about the response
+    properties:
+      message:
+        required: false
+        type: string
+      memo:
+        type: object
+        required: false
+        properties:
+          validatingAirlineDesignator:
+            type: !include validatingAirlineDesignator.raml
+          agentNumericCode:
+            type: !include agentNumericCode.raml
+          memo:
+            type: !include memo-number.raml
+          resolutionType:
+            type: string
+            example:
+              value: "TRS"
+          hold:
+            type: boolean
+            example:
+              value: true
+          trsReason:
+            type: string
+            example: "Fraudulent-Unauthorized Use"
+example: !include ../examples/memo-memo-resolution-response.json    

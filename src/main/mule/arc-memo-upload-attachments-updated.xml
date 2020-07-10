@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="arc-memo-upload-attachments-updated" doc:id="aaf8c212-01ac-4b59-9524-bdd0dec99155" >
+		<!-- <validation:is-true doc:name="Validate attachment specs" doc:id="ab46a815-e613-4362-9552-5ac3f15296cd" expression='#[vars.validationMsg == ""]' message="#[vars.validationMsg]">
+			<error-mapping sourceType="VALIDATION:INVALID_BOOLEAN" targetType="APP:NO_RESULTS_FOUND" />
+		</validation:is-true> -->
+		<logger level="INFO" doc:name="Logger" doc:id="a528e92f-fb0d-44e3-9aec-cec32238641c" message="inside upload attachments"/>
+		<ee:transform doc:name="Transform Message" doc:id="c391dd45-06fe-47a2-be32-2a63b9ce4d05" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import dw::module::Multipart
+import * from dw::core::Binaries
+output application/json
+var datestr = now() as String {format: "yyyyMMdd"}
+//fun uniqueNbr(intVal) = if(intVal == (now() as Number)) uniqueNbr(intVal)	else intVal	
+fun getFileExt(fileNm:String) = if (sizeOf(fileNm splitBy(".")) <= 1) "" else "." ++ (fileNm splitBy("."))[-1]
+fun generatedFilename() = "MA" ++ datestr++ (now() as Number) as String
+---
+	payload.parts map (value, index) ->{
+	"part1" : if (value.filename == null)
+				""
+			else 
+				generatedFilename() ++ getFileExt(value.filename as String),
+	"part2":value,
+	"name": if (value.filename == null)
+			"" as String
+		else
+			value.filename,
+	"relatedDocument" : if (value.filename == null)
+				""
+			else 
+				generatedFilename() ++ getFileExt(value.filename as String),
+	"fileSize":value.fileSize
+} 
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Build up validation message" doc:id="f607d7ba-0150-40cb-89cb-c84881db5fe1">
+				<ee:message>
+				</ee:message>
+				<ee:variables>
+					<ee:set-variable variableName="validationMsg"><![CDATA[import * from dw::core::Arrays
+output application/java
+fun getFileExt(fileNm:String) = if (sizeOf(fileNm splitBy(".")) <= 1) "" else (fileNm splitBy("."))[-1]
+---
+ 	if (payload some ($.fileSize > 10000000))
+		"File size greater than 10MB is not acceptable."
+	else if (payload some ($.name == null or $.name == "" ))
+		"Filename does not exist."
+	else if (sizeOf(payload.part1) > 50) 
+		"Maximum limit of 50 files exceeded."
+	else if (payload some ($.fileSize == 0 or (getFileExt($.name) as String matches /xml|bsp|exe|bat|dll|vbs|cmd/) == true))
+		"One or more of the files you've selected either has no content or uses a file type we don't accept (xml, bsp, exe, bat, dll, vbs, cmd)." 		
+	else ""]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+		<validation:is-true doc:name="Validate attachment specs" doc:id="7e8cbee0-48a1-42a0-b8ab-a2c2ca5eaae6" expression='#[vars.validationMsg == ""]' message="#[vars.validationMsg]">
+			<error-mapping sourceType="VALIDATION:INVALID_BOOLEAN" targetType="APP:NO_RESULTS_FOUND" />
+		</validation:is-true>
+		<ee:transform doc:name="JSON to Multipart" doc:id="e99a506d-11b6-4659-9433-46a1157725f5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import * from dw::core::Binaries
+import dw::module::Multipart
+output multipart/form-data
+fun arrToObj(arr) = arr reduce ((env, obj={}) -> obj ++ env)
+---
+{
+	 parts: arrToObj(payload) mapObject ((value,key) ->
+			{	 
+ 				(part1: Multipart::field({name: "fileName",value: value})) if(key as String == "part1"),	 		
+	 				 			(part2: Multipart::field({name: "Filename",
+	 							value: if (value.dataType as String == "Binary")
+											fromBase64(value.content)
+										else
+											value.content, 
+	 							mime: (value.contenttype as String), fileName: value.filename})) if(key as String == "part2")
+	 		}
+			) 	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<validation:is-true doc:name="Copy_of_Is true" doc:id="063830f1-56d3-4a1e-9a3c-c5dbfcff49fb" expression='#[ (payload contains "Success") == true ]' >
+			<error-mapping sourceType="VALIDATION:INVALID_BOOLEAN" targetType="APP:INVALID_RESPONSE" />
+		</validation:is-true>
+	
+</flow>
+	
+</mule>

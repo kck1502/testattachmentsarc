@@ -1,0 +1,18 @@
+{
+  "transactionMetadata": {
+    "correlationId": "01f51d60-7f25-11ea-b510-c8f750c849f4",
+    "timestamp": "2020-04-15T10:26:04.823-04:00",
+    "message": "SUCCESS",
+    "statusCode": "SUCCESS"
+  },
+  "transactionResponse": {
+    "message": "Memo Reason successful",
+    "memo": {
+      "validatingAirlineDesignator": "006",
+      "agentNumericCode": "05600313",
+      "memo": "8960900900",
+      "reasonCatagory": "Booking",
+      "memoReason": "DUPLICATE BOOKINGS/RESERVATIONS"
+    }
+  }
+}

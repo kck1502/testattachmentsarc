@@ -1,0 +1,8 @@
+{
+  "validatingAirlineDesignator": "006",
+  "agentNumericCode": "05600313",
+  "memo": "8960900900",
+  "resolutionType": "TRS",
+  "hold": true,
+  "trsReason": "Fraudulent-Unauthorized Use"
+}
