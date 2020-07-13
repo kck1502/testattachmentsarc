@@ -14,11 +14,14 @@ pipeline {
     }
  	
     stage('Deploy CloudHub') { 
-    	      steps {
+    	      environment {
+        chenv = "Sandbox"
+      }
+       steps {
         echo 'Deploying only because of code commit...'
         echo " deploying to  ${params.env} environent"
          echo " worker is  ${params.workerType}"
-        bat 'mvn package deploy -DmuleDeploy -Dusername=KCKC1502 -Dpassword=Chaitu@97 -Denvironment=${params.env} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2'
+        bat 'mvn package deploy -DmuleDeploy -Dusername=KCKC1502 -Dpassword=Chaitu@97 -Denvironment=${env.chenv} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2'
       }
     }
   }
