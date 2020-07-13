@@ -14,10 +14,7 @@ pipeline {
     }
  	
     stage('Deploy CloudHub') { 
-    	      environment {
-        ANYPOINT_CREDENTIALS = credentials('wp.anypoint.credentials')
-      }
-       steps {
+    	      steps {
         echo 'Deploying only because of code commit...'
         echo " deploying to  ${params.env} environent"
          echo " worker is  ${params.workerType}"
