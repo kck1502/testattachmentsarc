@@ -12,32 +12,6 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
 	<global-property doc:name="Global Property" doc:id="8c0e0b57-f58a-42d1-ad76-0f1311ccfd05" name="env" value="DEV" />
 	<flow name="save-attachmentsFlow" doc:id="3799b9b5-9bf1-4113-b849-88a4d8b51422" >
 		<logger level="DEBUG" doc:name="Logger" doc:id="e156b7f5-357a-4381-8e49-e49a407c91cc" message="#[payload]" />
-		<json-logger:logger doc:name="Logger" doc:id="3a515482-8677-49cf-b747-7d85d5114a61" config-ref="JSON_Logger_Config" message="payload">
-			<json-logger:content ><![CDATA[#[%dw 2.0
-import * from dw::core::Binaries
-output application/json 
-var payloadParts=payload pluck(payload.parts) default []
-var payloadArray=payloadParts[0] pluck($)
----
-payload: {
-	validatingAirlineDesignator: (payloadArray filter $.headers."Content-Disposition".name == "validatingAirlineDesignator").content[0],
-	agentNumericCode: (payloadArray filter $.headers."Content-Disposition".name == "agentNumericCode").content[0],
-	memo: (payloadArray filter $.headers."Content-Disposition".name == "memo").content[0],
-	//parts: (payloadArray filter $.headers."Content-Disposition".name == "fileData")	map (value,item) ->
-	//		{
-	//			"name": value.headers."Content-Disposition".name,
-//				"filename": value.headers."Content-Disposition".filename,
-	//			"contenttype": value.headers."Content-Type",
-	//			"dataType": typeOf(value.content),
-	//			"fileSize": sizeOf(value.content),
-	//			"content": 
-	//				if (typeOf(value.content) as String == "Binary")
-	//					toBase64(value.content)
-	//				else
-	//					value.content			
-	//		}			
-}]]]></json-logger:content>
-		</json-logger:logger>
 		<ee:transform doc:name="Save requestUrl" doc:id="858bc0fa-5a14-4296-8a08-034d9aff430b" >
 			<ee:message />
 			<ee:variables >
