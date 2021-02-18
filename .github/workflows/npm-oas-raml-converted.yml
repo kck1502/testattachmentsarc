@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: 12
       - run: git clone https://github.com/mulesoft/oas-raml-converter.git
+      - run: npm install chdir
       - run: npm install
       - run: chdir ./oas-raml-converter
       - run: ls
