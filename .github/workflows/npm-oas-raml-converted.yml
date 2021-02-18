@@ -18,5 +18,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install -g oas-raml-converter
+      - run: git clone https://github.com/mulesoft/oas-raml-converter.git
+      - run: npm install
+      - run: npm run build
       - run: node lib\bin\converter.js --from RAML --to OAS20 /testattachmentsarc/src/main/resources/api/arc-memo.raml > arc-memo.json
