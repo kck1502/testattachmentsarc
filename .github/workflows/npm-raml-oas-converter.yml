@@ -22,7 +22,7 @@ jobs:
       - run: git init
       - run: git remote add origin https://github.com/mulesoft/oas-raml-converter.git
       - run: git fetch
-      - run: git checkout https://github.com/mulesoft/oas-raml-converter.git .
+      - run: git checkout origin/master -ft
       - run: npm install
       - run: ls
       - run: npm run build
