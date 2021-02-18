@@ -23,4 +23,4 @@ jobs:
       - run: npm install
       - run: ls
       - run: npm run build
-      - run: node lib/bin/converter.js --from RAML --to OAS20 /testattachmentsarc/src/main/resources/api/arc-memo.raml > arc-memo.json
+      - run: node oas-raml-converter/lib/bin/converter.js --from RAML --to OAS20 /testattachmentsarc/src/main/resources/api/arc-memo.raml > arc-memo.json
