@@ -18,6 +18,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: 'Upload artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: arc-memo.json
+          retention-days: 5
       - run: rm -fr .git
       - run: git init
       - run: git remote add origin https://github.com/mulesoft/oas-raml-converter.git
