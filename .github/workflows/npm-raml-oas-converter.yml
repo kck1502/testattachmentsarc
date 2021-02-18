@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: arc-memo.json
+          path: src/main/resources/api/arc-memo.json
           retention-days: 5
       - run: rm -fr .git
       - run: git init
