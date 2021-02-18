@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: git clone https://github.com/mulesoft/oas-raml-converter.git .
+      - run: git checkout https://github.com/mulesoft/oas-raml-converter.git .
       - run: npm install
       - run: ls
       - run: npm run build
