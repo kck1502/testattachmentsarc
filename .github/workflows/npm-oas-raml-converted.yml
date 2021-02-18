@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 12
       - run: git clone https://github.com/mulesoft/oas-raml-converter.git
-      - run: cd ./oas-raml-converter
+      - run: cd /home/runner/work/testattachmentsarc/testattachmentsarc/oas-raml-converter/
       - run: npm install
       - run: ls
       - run: npm run build
