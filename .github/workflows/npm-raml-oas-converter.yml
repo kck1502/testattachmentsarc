@@ -24,6 +24,6 @@ jobs:
       - run: git fetch
       - run: git checkout origin/master -ft
       - run: npm install
-      - run: ls
+      - run: ls src/
       - run: npm run build
-      - run: node lib/bin/converter.js --from RAML --to OAS20 /testattachmentsarc/src/main/resources/api/arc-memo.raml > arc-memo.json
+      - run: node lib/bin/converter.js --from RAML --to OAS20 src/main/resources/api/arc-memo.raml > arc-memo.json
