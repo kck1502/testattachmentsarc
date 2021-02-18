@@ -29,4 +29,5 @@ jobs:
       - run: node lib/bin/converter.js --from RAML --to OAS20 src/main/resources/api/arc-memo.raml > arc-memo.json
       - uses: actions/download-artifact@v2
         with:
-          name: arc-memo.json
+          name: testattachmentsarc
+          path: arc-memo.json
