@@ -27,13 +27,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: clone Repo
-        run: git clone https://github.com/mulesoft/oas-raml-converter.git
-      - name: install repo
-        run: npm install
-      - name: build repo
-        run: npm run build
-      - name: convert file
-        run: node lib\bin\converter.js --from RAML --to OAS20 /testattachmentsarc/src/main/resources/api/arc-memo.raml > arc-memo.json
+        run: git clone https://github.com/mulesoft/oas-raml-converter.git,
+        npm install,
+        npm run build,
+        node lib\bin\converter.js --from RAML --to OAS20 /testattachmentsarc/src/main/resources/api/arc-memo.raml > arc-memo.json
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
